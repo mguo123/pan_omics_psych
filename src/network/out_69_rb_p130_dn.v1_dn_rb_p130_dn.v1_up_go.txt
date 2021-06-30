@@ -1,0 +1,1253 @@
+mRNA splicing, via spliceosome	0.2820000000000002
+cell division	0.16800000000000012
+sister chromatid cohesion	0.1560000000000001
+G2/M transition of mitotic cell cycle	0.1420000000000001
+mRNA export from nucleus	0.1360000000000001
+mitotic nuclear division	0.1340000000000001
+RNA splicing	0.10200000000000008
+termination of RNA polymerase II transcription	0.09400000000000007
+viral process	0.09000000000000007
+mRNA 3'-end processing	0.08400000000000006
+RNA export from nucleus	0.08200000000000006
+protein sumoylation	0.08000000000000006
+mRNA processing	0.07400000000000005
+intracellular transport of virus	0.06600000000000004
+regulation of cellular response to heat	0.06400000000000004
+gene silencing by RNA	0.06400000000000004
+mitotic nuclear envelope disassembly	0.06000000000000004
+tRNA export from nucleus	0.05800000000000004
+viral transcription	0.056000000000000036
+regulation of glucose transport	0.054000000000000034
+cilium assembly	0.05200000000000003
+gene expression	0.044000000000000025
+chromosome segregation	0.04200000000000002
+regulation of transcription, DNA-templated	0.04200000000000002
+apoptotic process	0.04000000000000002
+protein import into nucleus	0.03800000000000002
+transcription, DNA-templated	0.03800000000000002
+spliceosomal snRNP assembly	0.03600000000000002
+signal transduction	0.03600000000000002
+RNA splicing, via transesterification reactions	0.034000000000000016
+protein transport	0.034000000000000016
+RNA processing	0.034000000000000016
+nuclear import	0.032000000000000015
+CENP-A containing nucleosome assembly	0.032000000000000015
+antigen processing and presentation of exogenous peptide antigen via MHC class II	0.032000000000000015
+protein phosphorylation	0.032000000000000015
+mitotic spindle assembly	0.030000000000000013
+spliceosomal complex assembly	0.030000000000000013
+centrosome organization	0.02800000000000001
+mitotic sister chromatid segregation	0.02800000000000001
+mitotic spindle organization	0.02600000000000001
+cell proliferation	0.02600000000000001
+unknown	0.02600000000000001
+spindle assembly	0.02600000000000001
+microtubule nucleation	0.02600000000000001
+regulation of alternative mRNA splicing, via spliceosome	0.02600000000000001
+mitotic metaphase plate congression	0.024000000000000007
+nuclear-transcribed mRNA catabolic process, nonsense-mediated decay	0.024000000000000007
+positive regulation of transcription, DNA-templated	0.024000000000000007
+protein folding	0.024000000000000007
+positive regulation of transcription from RNA polymerase II promoter	0.024000000000000007
+centriole replication	0.024000000000000007
+protein complex assembly	0.022000000000000006
+microtubule-based movement	0.022000000000000006
+microtubule-based process	0.022000000000000006
+negative regulation of transcription from RNA polymerase II promoter	0.022000000000000006
+mRNA polyadenylation	0.022000000000000006
+cilium morphogenesis	0.022000000000000006
+centrosome duplication	0.022000000000000006
+negative regulation of mRNA splicing, via spliceosome	0.022000000000000006
+DNA repair	0.022000000000000006
+negative regulation of apoptotic process	0.020000000000000004
+negative regulation of cell proliferation	0.020000000000000004
+protein localization to centrosome	0.020000000000000004
+mitotic spindle assembly checkpoint	0.020000000000000004
+mitotic cell cycle checkpoint	0.020000000000000004
+fibroblast growth factor receptor signaling pathway	0.020000000000000004
+cytokinesis	0.018000000000000002
+multicellular organism development	0.018000000000000002
+ER to Golgi vesicle-mediated transport	0.018000000000000002
+microtubule cytoskeleton organization	0.018000000000000002
+establishment of mitotic spindle orientation	0.018000000000000002
+meiotic nuclear division	0.018000000000000002
+nervous system development	0.016
+mRNA cleavage	0.016
+poly(A)+ mRNA export from nucleus	0.016
+nonmotile primary cilium assembly	0.016
+positive regulation of cell proliferation	0.016
+spermatogenesis	0.016
+transcription from RNA polymerase II promoter	0.016
+rRNA processing	0.016
+response to drug	0.014
+nuclear pore complex assembly	0.014
+mRNA transport	0.014
+retrograde vesicle-mediated transport, Golgi to ER	0.014
+kinetochore assembly	0.014
+metaphase plate congression	0.014
+negative regulation of transcription, DNA-templated	0.014
+alternative mRNA splicing, via spliceosome	0.014
+smoothened signaling pathway	0.014
+in utero embryonic development	0.014
+peptidyl-serine phosphorylation	0.014
+cytoplasmic microtubule organization	0.014
+viral mRNA export from host cell nucleus	0.014
+positive regulation of mRNA splicing, via spliceosome	0.014
+mitotic sister chromatid cohesion	0.014
+regulation of cell cycle	0.014
+proteasome-mediated ubiquitin-dependent protein catabolic process	0.014
+protein export from nucleus	0.014
+histone mRNA metabolic process	0.014
+DNA damage response, signal transduction by p53 class mediator resulting in cell cycle arrest	0.012
+NLS-bearing protein import into nucleus	0.012
+spliceosomal tri-snRNP complex assembly	0.012
+mitotic cell cycle	0.012
+attachment of mitotic spindle microtubules to kinetochore	0.012
+positive regulation of intracellular protein transport	0.012
+neuron migration	0.012
+interphase microtubule nucleation by interphase microtubule organizing center	0.012
+RNA secondary structure unwinding	0.012
+pre-mRNA cleavage required for polyadenylation	0.012
+positive regulation of apoptotic process	0.012
+positive regulation of translation	0.012
+protein refolding	0.012
+regulation of mRNA stability	0.012
+response to unfolded protein	0.012
+mRNA cis splicing, via spliceosome	0.012
+snRNA transcription from RNA polymerase II promoter	0.012
+nuclear pore organization	0.012
+cell cycle	0.012
+negative regulation of ubiquitin-protein ligase activity involved in mitotic cell cycle	0.012
+positive regulation of ubiquitin-protein ligase activity involved in regulation of mitotic cell cycle transition	0.012
+anaphase-promoting complex-dependent catabolic process	0.012
+protein ubiquitination involved in ubiquitin-dependent protein catabolic process	0.012
+cellular response to heat	0.01
+osteoblast differentiation	0.01
+cellular protein localization	0.01
+substantia nigra development	0.01
+actin cytoskeleton organization	0.01
+Golgi organization	0.01
+cerebral cortex development	0.01
+cell differentiation	0.01
+cell projection organization	0.01
+meiotic cell cycle	0.01
+intracellular signal transduction	0.01
+positive regulation of epithelial cell migration	0.01
+transcription elongation from RNA polymerase II promoter	0.01
+protein homooligomerization	0.01
+regulation of circadian rhythm	0.01
+transcription-coupled nucleotide-excision repair	0.01
+exonucleolytic nuclear-transcribed mRNA catabolic process involved in deadenylation-dependent decay	0.01
+mRNA 3'-splice site recognition	0.01
+microtubule anchoring	0.01
+response to toxic substance	0.008
+G1/S transition of mitotic cell cycle	0.008
+positive regulation of fibroblast proliferation	0.008
+cellular response to DNA damage stimulus	0.008
+astral microtubule organization	0.008
+protein import into nucleus, translocation	0.008
+modulation by virus of host process	0.008
+protein dephosphorylation	0.008
+positive regulation of cytokinesis	0.008
+vesicle transport along microtubule	0.008
+positive regulation of mitotic cell cycle spindle assembly checkpoint	0.008
+centrosome localization	0.008
+positive regulation of protein insertion into mitochondrial membrane involved in apoptotic signaling pathway	0.008
+microtubule depolymerization	0.008
+small GTPase mediated signal transduction	0.008
+establishment or maintenance of cell polarity	0.008
+positive regulation of protein targeting to mitochondrion	0.008
+microtubule organizing center organization	0.008
+regulation of RNA splicing	0.008
+regulation of protein localization	0.008
+spindle organization	0.008
+regulation of centriole replication	0.008
+positive regulation of cell migration	0.008
+microtubule bundle formation	0.008
+protein localization to kinetochore	0.008
+intracellular protein transport	0.008
+nucleocytoplasmic transport	0.008
+innate immune response	0.008
+nuclear export	0.008
+7-methylguanosine mRNA capping	0.008
+cellular response to nerve growth factor stimulus	0.008
+RNA transport	0.008
+cell adhesion	0.008
+regulation of transcription from RNA polymerase II promoter	0.008
+positive regulation of RNA splicing	0.008
+mRNA splice site selection	0.008
+regulation of ubiquitin-protein ligase activity involved in mitotic cell cycle	0.008
+transcription initiation from RNA polymerase II promoter	0.008
+negative regulation of cyclin-dependent protein serine/threonine kinase activity	0.006
+Ras protein signal transduction	0.006
+intrinsic apoptotic signaling pathway in response to DNA damage by p53 class mediator	0.006
+protein stabilization	0.006
+negative regulation of cell growth	0.006
+negative regulation of gene expression	0.006
+positive regulation of programmed cell death	0.006
+3'-UTR-mediated mRNA stabilization	0.006
+establishment of protein localization	0.006
+establishment of mitotic spindle localization	0.006
+protein import into nucleus, docking	0.006
+regulation of DNA replication	0.006
+negative regulation of phosphatase activity	0.006
+regulation of microtubule cytoskeleton organization	0.006
+regulation of chromosome segregation	0.006
+positive regulation of cell growth	0.006
+regulation of attachment of spindle microtubules to kinetochore	0.006
+positive regulation of DNA replication	0.006
+viral RNA genome replication	0.006
+blood coagulation	0.006
+Fc-gamma receptor signaling pathway involved in phagocytosis	0.006
+positive regulation of JNK cascade	0.006
+regulation of mitotic nuclear division	0.006
+heart development	0.006
+regulation of microtubule motor activity	0.006
+positive regulation of axon extension	0.006
+cellular response to lipopolysaccharide	0.006
+neuron projection development	0.006
+vesicle-mediated transport	0.006
+camera-type eye development	0.006
+embryonic digit morphogenesis	0.006
+regulation of smoothened signaling pathway	0.006
+neural tube closure	0.006
+embryonic brain development	0.006
+motile primary cilium assembly	0.006
+determination of left/right symmetry	0.006
+positive regulation of nonmotile primary cilium assembly	0.006
+de novo centriole assembly	0.006
+protein localization	0.006
+single organismal cell-cell adhesion	0.006
+IRE1-mediated unfolded protein response	0.006
+negative regulation of DNA binding	0.006
+positive regulation of telomere maintenance via telomerase	0.006
+protein autophosphorylation	0.006
+learning	0.006
+renal water homeostasis	0.006
+melanosome transport	0.006
+cellular response to insulin stimulus	0.006
+membrane organization	0.006
+regulation of cell shape	0.006
+negative regulation of DNA endoreduplication	0.006
+regulation of microtubule polymerization or depolymerization	0.006
+protein localization to chromatin	0.006
+positive regulation of DNA-templated transcription, elongation	0.006
+regulation of translation	0.006
+tRNA splicing, via endonucleolytic cleavage and ligation	0.006
+mRNA 3'-end processing by stem-loop binding and cleavage	0.006
+vesicle targeting	0.006
+positive regulation of NF-kappaB transcription factor activity	0.006
+response to heat	0.006
+positive regulation of neuron projection development	0.006
+response to hydrogen peroxide	0.006
+regulation of translational initiation	0.006
+positive regulation of mRNA 3'-end processing	0.006
+response to radiation	0.006
+circadian rhythm	0.006
+aging	0.006
+neurogenesis	0.006
+protein heterotrimerization	0.006
+regulation of protein import into nucleus	0.006
+positive regulation of I-kappaB kinase/NF-kappaB signaling	0.006
+ribosomal large subunit export from nucleus	0.006
+ribosomal small subunit export from nucleus	0.006
+positive regulation of viral genome replication	0.006
+rhythmic process	0.006
+regulation of mitotic spindle assembly	0.006
+cellular response to tumor necrosis factor	0.006
+liver development	0.006
+circadian regulation of gene expression	0.006
+positive regulation of proteasomal ubiquitin-dependent protein catabolic process	0.006
+mitotic cytokinesis	0.006
+response to arsenic-containing substance	0.004
+positive regulation of protein kinase activity	0.004
+cellular response to amino acid starvation	0.004
+negative regulation of phosphorylation	0.004
+cell cycle arrest	0.004
+intrinsic apoptotic signaling pathway	0.004
+negative regulation of protein catabolic process	0.004
+negative regulation of telomere maintenance via telomerase	0.004
+mitotic chromosome movement towards spindle pole	0.004
+regulation of cell differentiation	0.004
+regulation of cell adhesion	0.004
+regulation of growth	0.004
+inactivation of MAPK activity	0.004
+mitotic nuclear envelope reassembly	0.004
+second-messenger-mediated signaling	0.004
+ceramide metabolic process	0.004
+negative regulation of tyrosine phosphorylation of Stat3 protein	0.004
+regulation of Wnt signaling pathway	0.004
+positive regulation of extrinsic apoptotic signaling pathway in absence of ligand	0.004
+response to organic substance	0.004
+meiotic sister chromatid cohesion, centromeric	0.004
+DNA-templated transcription, termination	0.004
+regulation of mitotic metaphase/anaphase transition	0.004
+cytoplasmic mRNA processing body assembly	0.004
+macroautophagy	0.004
+male meiosis	0.004
+establishment or maintenance of microtubule cytoskeleton polarity	0.004
+nuclear migration	0.004
+negative regulation of epidermal growth factor receptor signaling pathway	0.004
+vascular endothelial growth factor receptor signaling pathway	0.004
+regulation of protein catabolic process	0.004
+positive regulation of gene expression	0.004
+positive regulation of neuron apoptotic process	0.004
+positive regulation of epithelial cell proliferation involved in lung morphogenesis	0.004
+regulation of protein stability	0.004
+regulation of cell growth	0.004
+regulation of mRNA processing	0.004
+regulation of DNA methylation	0.004
+neuroblast proliferation	0.004
+retrograde axonal transport	0.004
+learning or memory	0.004
+nuclear envelope disassembly	0.004
+protein secretion	0.004
+regulation of GTPase activity	0.004
+positive regulation of mitotic cell cycle	0.004
+hippocampus development	0.004
+cochlea development	0.004
+chemical synaptic transmission	0.004
+modification by virus of host mRNA processing	0.004
+photoreceptor cell outer segment organization	0.004
+central nervous system development	0.004
+heart looping	0.004
+hindbrain development	0.004
+brain development	0.004
+neural tube development	0.004
+centriole elongation	0.004
+protein localization to ciliary transition zone	0.004
+positive regulation of cilium assembly	0.004
+negative regulation of cilium assembly	0.004
+regulation of cytokinesis	0.004
+intraciliary transport involved in cilium morphogenesis	0.004
+regulation of centrosome duplication	0.004
+centriole-centriole cohesion	0.004
+protein localization to organelle	0.004
+signal transduction in response to DNA damage	0.004
+gamma-tubulin complex localization	0.004
+ER-associated ubiquitin-dependent protein catabolic process	0.004
+response to virus	0.004
+establishment of cell polarity	0.004
+establishment of chromosome localization	0.004
+mitotic centrosome separation	0.004
+cell migration	0.004
+blastocyst development	0.004
+positive regulation of telomere capping	0.004
+positive regulation of telomerase activity	0.004
+positive regulation of bicellular tight junction assembly	0.004
+visual behavior	0.004
+retina development in camera-type eye	0.004
+cellular response to glucagon stimulus	0.004
+activation of protein kinase A activity	0.004
+regulation of long-term neuronal synaptic plasticity	0.004
+regulation of protein transport	0.004
+protein localization to plasma membrane	0.004
+positive regulation of G2/M transition of mitotic cell cycle	0.004
+regulation of signal transduction by p53 class mediator	0.004
+regulation of mitotic spindle organization	0.004
+regulation of exit from mitosis	0.004
+regulation of mitotic cell cycle	0.004
+stem cell population maintenance	0.004
+spindle assembly checkpoint	0.004
+regulation of cohesin loading	0.004
+double-strand break repair	0.004
+kidney development	0.004
+hippo signaling	0.004
+photoreceptor cell maintenance	0.004
+chromosome organization	0.004
+female gamete generation	0.004
+oogenesis	0.004
+negative regulation of DNA replication	0.004
+regulation of cell proliferation	0.004
+positive regulation of protein dephosphorylation	0.004
+regulation of phosphatidylinositol 3-kinase signaling	0.004
+G2 DNA damage checkpoint	0.004
+negative regulation of sister chromatid cohesion	0.004
+regulation of chromosome condensation	0.004
+positive regulation of TOR signaling	0.004
+COPII vesicle coating	0.004
+regulation of nucleocytoplasmic transport	0.004
+negative regulation of translational initiation	0.004
+phosphatidylinositol-mediated signaling	0.004
+translation	0.004
+replication fork processing	0.004
+regulation of DNA recombination	0.004
+activation of JUN kinase activity	0.004
+negative regulation of protein ubiquitination	0.004
+ATP metabolic process	0.004
+regulation of protein ubiquitination	0.004
+negative regulation of inclusion body assembly	0.004
+negative regulation of cell death	0.004
+response to cold	0.004
+synaptonemal complex disassembly	0.004
+spermatid development	0.004
+positive regulation of sequence-specific DNA binding transcription factor activity	0.004
+positive regulation of cell cycle arrest	0.004
+positive regulation of protein complex assembly	0.004
+regulation of peptidyl-tyrosine phosphorylation	0.004
+chaperone-mediated autophagy	0.004
+regulation of protein complex assembly	0.004
+viral penetration into host nucleus	0.004
+viral entry into host cell	0.004
+snRNA export from nucleus	0.004
+nuclear pore distribution	0.004
+negative regulation of centrosome duplication	0.004
+cell aging	0.004
+nucleosome assembly	0.004
+positive regulation of ERK1 and ERK2 cascade	0.004
+positive regulation of GTPase activity	0.004
+negative regulation of neuron apoptotic process	0.004
+response to nutrient levels	0.004
+positive regulation of protein phosphorylation	0.004
+response to axon injury	0.004
+response to electrical stimulus	0.004
+posttranscriptional tethering of RNA polymerase II gene DNA at nuclear periphery	0.004
+transcription-dependent tethering of RNA polymerase II gene DNA at nuclear periphery	0.004
+negative regulation of RNA export from nucleus	0.004
+nuclear envelope organization	0.004
+protein targeting to nuclear inner membrane	0.004
+glomerular visceral epithelial cell migration	0.004
+protein heterotetramerization	0.004
+negative regulation of Ras protein signal transduction	0.004
+regulation of signal transduction	0.004
+lamellipodium assembly	0.004
+SMAD protein signal transduction	0.004
+DNA replication	0.004
+mRNA 5'-splice site recognition	0.004
+defense response to Gram-positive bacterium	0.004
+negative regulation of protein export from nucleus	0.004
+androgen receptor signaling pathway	0.004
+establishment of spindle orientation	0.004
+inflammatory response	0.004
+retinoic acid receptor signaling pathway	0.004
+response to cytokine	0.004
+positive regulation of protein export from nucleus	0.004
+protein localization to nucleus	0.004
+negative regulation of protein phosphorylation	0.004
+cellular response to interleukin-1	0.004
+generation of catalytic spliceosome for second transesterification step	0.004
+regulation of mRNA splicing, via spliceosome	0.004
+response to alkaloid	0.004
+mRNA stabilization	0.004
+mRNA methylation	0.004
+maturation of SSU-rRNA	0.004
+signal transduction involved in DNA damage checkpoint	0.004
+inner cell mass cell proliferation	0.004
+negative regulation of neuron differentiation	0.004
+RNA catabolic process	0.004
+cellular response to retinoic acid	0.004
+primary miRNA processing	0.004
+positive regulation of neurogenesis	0.004
+liver regeneration	0.004
+response to insulin	0.004
+negative regulation of DNA damage checkpoint	0.004
+monocyte differentiation	0.004
+release of sequestered calcium ion into cytosol	0.004
+regulation of mitophagy	0.004
+meiotic spindle organization	0.004
+homologous chromosome segregation	0.004
+neuron differentiation	0.004
+response to cocaine	0.004
+positive regulation of attachment of spindle microtubules to kinetochore	0.004
+negative regulation of focal adhesion assembly	0.004
+focal adhesion assembly	0.004
+activation of GTPase activity	0.004
+regulation of cell migration	0.004
+response to lipopolysaccharide	0.004
+regulation of protein binding	0.004
+regulation of osteoblast differentiation	0.004
+positive regulation of ubiquitin protein ligase activity	0.004
+cerebellum development	0.004
+positive regulation by host of viral transcription	0.004
+IRES-dependent viral translational initiation	0.004
+cis assembly of pre-catalytic spliceosome	0.004
+endocytosis	0.004
+positive regulation of non-canonical Wnt signaling pathway	0.004
+Wnt signaling pathway	0.004
+positive regulation of canonical Wnt signaling pathway	0.004
+positive regulation of dopaminergic neuron differentiation	0.004
+cellular response to nitric oxide	0.004
+regulation of neuron differentiation	0.004
+protein targeting	0.004
+negative regulation of protein kinase activity	0.004
+response to antibiotic	0.004
+positive regulation of viral transcription	0.004
+positive regulation of transcription elongation from RNA polymerase II promoter	0.004
+response to mechanical stimulus	0.004
+cellular response to calcium ion	0.004
+protein tetramerization	0.004
+cellular response to hypoxia	0.004
+establishment of epithelial cell polarity	0.004
+attachment of spindle microtubules to kinetochore	0.004
+negative regulation of wound healing, spreading of epidermal cells	0.004
+exit from mitosis	0.004
+positive regulation of exocytosis	0.004
+negative regulation of microtubule depolymerization	0.004
+positive regulation of extracellular matrix disassembly	0.004
+regulation of epithelial to mesenchymal transition	0.004
+positive regulation of basement membrane assembly involved in embryonic body morphogenesis	0.004
+regulation of gastrulation	0.004
+negative regulation of stress fiber assembly	0.004
+positive regulation of B cell proliferation	0.002
+response to hyperoxia	0.002
+cellular response to ionizing radiation	0.002
+response to X-ray	0.002
+positive regulation of reactive oxygen species metabolic process	0.002
+intestinal epithelial cell maturation	0.002
+cellular senescence	0.002
+response to organonitrogen compound	0.002
+regulation of protein import into nucleus, translocation	0.002
+regulation of cyclin-dependent protein serine/threonine kinase activity	0.002
+negative regulation of G1/S transition of mitotic cell cycle	0.002
+cellular response to UV-B	0.002
+mitotic cell cycle arrest	0.002
+replicative senescence	0.002
+animal organ regeneration	0.002
+response to corticosterone	0.002
+regulation of DNA biosynthetic process	0.002
+stress-induced premature senescence	0.002
+cellular response to extracellular stimulus	0.002
+ATP-dependent chromatin remodeling	0.002
+Ran protein signal transduction	0.002
+apoptotic DNA fragmentation	0.002
+ribosomal protein import into nucleus	0.002
+peptidyl-serine dephosphorylation	0.002
+mitotic sister chromatid separation	0.002
+meiotic spindle elongation	0.002
+regulation of meiotic cell cycle process involved in oocyte maturation	0.002
+female meiotic division	0.002
+lateral attachment of mitotic spindle microtubules to kinetochore	0.002
+positive regulation of cell division	0.002
+stress granule assembly	0.002
+establishment of spindle localization	0.002
+transport	0.002
+synaptic target recognition	0.002
+seminiferous tubule development	0.002
+positive regulation of synapse structural plasticity	0.002
+epithelial-mesenchymal cell signaling	0.002
+submandibular salivary gland formation	0.002
+hair follicle morphogenesis	0.002
+actin filament branching	0.002
+ephrin receptor signaling pathway	0.002
+T cell costimulation	0.002
+filopodium assembly	0.002
+keratinization	0.002
+actin filament bundle assembly	0.002
+positive regulation of pseudopodium assembly	0.002
+regulation of filopodium assembly	0.002
+epithelial cell-cell adhesion	0.002
+establishment of Golgi localization	0.002
+regulation of small GTPase mediated signal transduction	0.002
+organelle transport along microtubule	0.002
+adherens junction organization	0.002
+positive regulation of substrate adhesion-dependent cell spreading	0.002
+dendritic cell migration	0.002
+positive regulation of hair follicle cell proliferation	0.002
+macrophage differentiation	0.002
+regulation of protein kinase activity	0.002
+cardiac conduction system development	0.002
+multicellular organism growth	0.002
+hair follicle placode formation	0.002
+heart contraction	0.002
+regulation of protein heterodimerization activity	0.002
+neuron fate determination	0.002
+negative regulation of protein complex assembly	0.002
+positive regulation of phosphatidylinositol 3-kinase activity	0.002
+keratinocyte development	0.002
+Wnt signaling pathway, planar cell polarity pathway	0.002
+positive regulation of muscle cell differentiation	0.002
+establishment or maintenance of apical/basal cell polarity	0.002
+canonical Wnt signaling pathway	0.002
+positive regulation of peptidyl-serine phosphorylation	0.002
+sprouting angiogenesis	0.002
+positive regulation of signal transduction by p53 class mediator	0.002
+cerebral cortex neuron differentiation	0.002
+platelet activating factor metabolic process	0.002
+positive regulation of cytokine-mediated signaling pathway	0.002
+acrosome assembly	0.002
+osteoclast development	0.002
+negative regulation of JNK cascade	0.002
+negative regulation of neuron projection development	0.002
+lipid catabolic process	0.002
+establishment of centrosome localization	0.002
+neuromuscular process controlling balance	0.002
+stem cell division	0.002
+positive regulation of dendritic spine morphogenesis	0.002
+auditory receptor cell development	0.002
+corpus callosum morphogenesis	0.002
+cortical microtubule organization	0.002
+ameboidal-type cell migration	0.002
+transmission of nerve impulse	0.002
+establishment of planar polarity of embryonic epithelium	0.002
+layer formation in cerebral cortex	0.002
+adult locomotory behavior	0.002
+brain morphogenesis	0.002
+positive regulation of embryonic development	0.002
+germ cell development	0.002
+microtubule cytoskeleton organization involved in establishment of planar polarity	0.002
+MAPK cascade	0.002
+muscle contraction	0.002
+positive regulation of polynucleotide adenylyltransferase activity	0.002
+RNA polyadenylation	0.002
+regulation of mRNA 3'-end processing	0.002
+regulation of dendrite morphogenesis	0.002
+positive regulation of receptor internalization	0.002
+cloaca development	0.002
+retina layer formation	0.002
+otic vesicle development	0.002
+specification of axis polarity	0.002
+positive regulation of polarized epithelial cell differentiation	0.002
+morphogenesis of a polarized epithelium	0.002
+left/right axis specification	0.002
+Kupffer's vesicle development	0.002
+pronephric duct morphogenesis	0.002
+pronephric nephron tubule morphogenesis	0.002
+transmembrane receptor protein tyrosine kinase signaling pathway	0.002
+regulation of behavior	0.002
+neuroepithelial cell differentiation	0.002
+vasculature development	0.002
+neural plate axis specification	0.002
+protein processing	0.002
+regulation of proteolysis	0.002
+axoneme assembly	0.002
+motile cilium assembly	0.002
+ciliary basal body organization	0.002
+regulation of centriole-centriole cohesion	0.002
+otic vesicle formation	0.002
+regulation of establishment of protein localization	0.002
+eye photoreceptor cell development	0.002
+pronephros development	0.002
+protein polyglutamylation	0.002
+DNA damage checkpoint	0.002
+regulation of protein localization to centrosome	0.002
+vesicle docking	0.002
+regulation of PERK-mediated unfolded protein response	0.002
+cerebellar Purkinje cell layer development	0.002
+activation of signaling protein activity involved in unfolded protein response	0.002
+regulation of ATF6-mediated unfolded protein response	0.002
+cellular response to glucose starvation	0.002
+PERK-mediated unfolded protein response	0.002
+maintenance of protein localization in endoplasmic reticulum	0.002
+positive regulation of transcription from RNA polymerase II promoter in response to endoplasmic reticulum stress	0.002
+endoplasmic reticulum unfolded protein response	0.002
+ATF6-mediated unfolded protein response	0.002
+positive regulation of protein ubiquitination	0.002
+negative regulation of protein homodimerization activity	0.002
+protein folding in endoplasmic reticulum	0.002
+regulation of protein folding in endoplasmic reticulum	0.002
+cellular response to interleukin-4	0.002
+cerebellum structural organization	0.002
+cellular response to antibiotic	0.002
+cellular response to manganese ion	0.002
+regulation of IRE1-mediated unfolded protein response	0.002
+negative regulation of transforming growth factor beta receptor signaling pathway	0.002
+toxin transport	0.002
+ER overload response	0.002
+regulation of canonical Wnt signaling pathway	0.002
+epithelial structure maintenance	0.002
+regulation of Wnt signaling pathway, planar cell polarity pathway	0.002
+embryonic skeletal system development	0.002
+regulation of smoothened signaling pathway involved in dorsal/ventral neural tube patterning	0.002
+common bile duct development	0.002
+head development	0.002
+branching morphogenesis of an epithelial tube	0.002
+inner ear receptor stereocilium organization	0.002
+regulation of mitotic centrosome separation	0.002
+centrosome separation	0.002
+negative regulation of centriole-centriole cohesion	0.002
+excretion	0.002
+spermatid differentiation	0.002
+epithelial cilium movement involved in determination of left/right asymmetry	0.002
+trophoblast giant cell differentiation	0.002
+positive regulation of centriole replication	0.002
+negative regulation of cAMP-dependent protein kinase activity	0.002
+fatty acid metabolic process	0.002
+response to antipsychotic drug	0.002
+response to clozapine	0.002
+plasma membrane to endosome transport	0.002
+establishment of vesicle localization	0.002
+regulation of vesicle-mediated transport	0.002
+exosomal secretion	0.002
+regulation of multivesicular body size	0.002
+multivesicular body assembly	0.002
+establishment of protein localization to membrane	0.002
+establishment of protein localization to organelle	0.002
+protein targeting to membrane	0.002
+Golgi to plasma membrane transport	0.002
+vesicle docking involved in exocytosis	0.002
+axonogenesis	0.002
+Golgi vesicle fusion to target membrane	0.002
+tube formation	0.002
+ciliary receptor clustering involved in smoothened signaling pathway	0.002
+intraciliary transport	0.002
+neural tube formation	0.002
+telencephalon development	0.002
+somatic motor neuron differentiation	0.002
+central nervous system interneuron axonogenesis	0.002
+dorsal/ventral neural tube patterning	0.002
+activation of protein kinase activity	0.002
+single fertilization	0.002
+apoptotic process involved in morphogenesis	0.002
+cerebral cortex regionalization	0.002
+regulation of sister chromatid cohesion	0.002
+positive regulation of exit from mitosis	0.002
+positive regulation of cell cycle phase transition	0.002
+mitotic chromosome condensation	0.002
+regulation of G2/M transition of mitotic cell cycle	0.002
+ventricular system development	0.002
+regulation of striated muscle tissue development	0.002
+muscle organ development	0.002
+DNA biosynthetic process	0.002
+sex differentiation	0.002
+negative regulation of canonical Wnt signaling pathway	0.002
+flagellated sperm motility	0.002
+positive regulation of protein localization to kinetochore	0.002
+chordate embryonic development	0.002
+actin filament organization	0.002
+attachment of spindle microtubules to kinetochore involved in meiotic sister chromatid segregation	0.002
+thymus development	0.002
+negative regulation of T cell proliferation	0.002
+regulation of metaphase plate congression	0.002
+histone H4-K8 acetylation	0.002
+histone H4-K16 acetylation	0.002
+histone H4-K5 acetylation	0.002
+negative regulation of lipid kinase activity	0.002
+negative regulation of establishment of protein localization to plasma membrane	0.002
+spindle checkpoint	0.002
+positive regulation of stress-activated MAPK cascade	0.002
+execution phase of apoptosis	0.002
+regulation of cytoskeleton organization	0.002
+negative regulation of chromatin binding	0.002
+meiotic chromosome segregation	0.002
+establishment of localization in cell	0.002
+positive regulation of protein serine/threonine kinase activity	0.002
+mesoderm development	0.002
+negative regulation of epithelial to mesenchymal transition	0.002
+response to vitamin E	0.002
+antigen processing and presentation of peptide antigen via MHC class I	0.002
+fertilization	0.002
+pre-miRNA processing	0.002
+posttranscriptional gene silencing by RNA	0.002
+miRNA metabolic process	0.002
+mRNA cleavage involved in gene silencing by miRNA	0.002
+Wnt signaling pathway, calcium modulating pathway	0.002
+production of miRNAs involved in gene silencing by miRNA	0.002
+mRNA cleavage involved in gene silencing by siRNA	0.002
+siRNA loading onto RISC involved in RNA interference	0.002
+positive regulation of nuclear-transcribed mRNA catabolic process, deadenylation-dependent decay	0.002
+miRNA mediated inhibition of translation	0.002
+positive regulation of nuclear-transcribed mRNA poly(A) tail shortening	0.002
+miRNA loading onto RISC involved in gene silencing by miRNA	0.002
+post-embryonic development	0.002
+RNA metabolic process	0.002
+intracellular mRNA localization	0.002
+regulation of steroid biosynthetic process	0.002
+negative regulation of selenocysteine insertion sequence binding	0.002
+negative regulation of excitatory postsynaptic potential	0.002
+associative learning	0.002
+embryonic cranial skeleton morphogenesis	0.002
+negative regulation of translation	0.002
+selenocysteine metabolic process	0.002
+cellular response to brain-derived neurotrophic factor stimulus	0.002
+negative regulation of selenocysteine incorporation	0.002
+cellular response to selenite ion	0.002
+response to organic cyclic compound	0.002
+nuclear-transcribed mRNA poly(A) tail shortening	0.002
+exploration behavior	0.002
+immune response	0.002
+JNK cascade	0.002
+'de novo' cotranslational protein folding	0.002
+cellular heat acclimation	0.002
+positive regulation of nucleotide-binding oligomerization domain containing 2 signaling pathway	0.002
+negative regulation of endoplasmic reticulum stress-induced intrinsic apoptotic signaling pathway	0.002
+positive regulation of interleukin-8 production	0.002
+positive regulation of endoribonuclease activity	0.002
+negative regulation of extrinsic apoptotic signaling pathway in absence of ligand	0.002
+positive regulation of mRNA endonucleolytic cleavage involved in unfolded protein response	0.002
+positive regulation of tumor necrosis factor-mediated signaling pathway	0.002
+cellular response to oxidative stress	0.002
+negative regulation of mitochondrial outer membrane permeabilization involved in apoptotic signaling pathway	0.002
+positive regulation of cyclin-dependent protein serine/threonine kinase activity involved in G2/M transition of mitotic cell cycle	0.002
+positive regulation of calcium-transporting ATPase activity	0.002
+male meiosis I	0.002
+regulation of receptor activity	0.002
+negative regulation of G0 to G1 transition	0.002
+regulation of protein autophosphorylation	0.002
+cellular response to growth factor stimulus	0.002
+positive regulation of neurotrophin TRK receptor signaling pathway	0.002
+chaperone-mediated autophagy translocation complex disassembly	0.002
+chaperone mediated protein folding requiring cofactor	0.002
+negative regulation of fibril organization	0.002
+clathrin coat disassembly	0.002
+cellular response to starvation	0.002
+late endosomal microautophagy	0.002
+chaperone-mediated protein transport involved in chaperone-mediated autophagy	0.002
+regulation of protein complex stability	0.002
+neurotransmitter secretion	0.002
+protein targeting to lysosome involved in chaperone-mediated autophagy	0.002
+regulation of protein import	0.002
+negative regulation of erythrocyte differentiation	0.002
+erythrocyte differentiation	0.002
+negative regulation of natural killer cell activation	0.002
+negative regulation of prostaglandin biosynthetic process	0.002
+negative regulation of interleukin-12 production	0.002
+positive regulation of tyrosine phosphorylation of Stat6 protein	0.002
+immune system process	0.002
+negative regulation of tyrosine phosphorylation of Stat4 protein	0.002
+activation of JAK1 kinase activity	0.002
+positive regulation of interleukin-10 production	0.002
+positive regulation of RNA export from nucleus	0.002
+synapsis	0.002
+regulation of endodeoxyribonuclease activity	0.002
+protein oligomerization	0.002
+regulation of eIF2 alpha phosphorylation by dsRNA	0.002
+ribosome assembly	0.002
+regulation of endoribonuclease activity	0.002
+positive regulation of catalytic activity	0.002
+positive regulation of cell cycle G2/M phase transition	0.002
+response to stress	0.002
+centrosome cycle	0.002
+negative regulation of protein kinase activity by regulation of protein phosphorylation	0.002
+regulation of neuron apoptotic process	0.002
+B cell differentiation	0.002
+activation of MAPKK activity	0.002
+axon guidance	0.002
+axonogenesis involved in innervation	0.002
+Sertoli cell development	0.002
+neurotrophin TRK receptor signaling pathway	0.002
+positive regulation of synapse assembly	0.002
+response to activity	0.002
+mechanoreceptor differentiation	0.002
+programmed cell death involved in cell development	0.002
+positive regulation of Ras protein signal transduction	0.002
+detection of temperature stimulus involved in sensory perception of pain	0.002
+positive regulation of angiogenesis	0.002
+response to hydrostatic pressure	0.002
+cellular response to nicotine	0.002
+positive regulation of synaptic transmission, glutamatergic	0.002
+behavioral response to formalin induced pain	0.002
+olfactory nerve development	0.002
+sympathetic nervous system development	0.002
+response to ethanol	0.002
+detection of mechanical stimulus involved in sensory perception of pain	0.002
+paraxial mesoderm development	0.002
+chromatin organization	0.002
+somite development	0.002
+atrial cardiac muscle cell action potential	0.002
+transmembrane transport	0.002
+ribonucleoprotein complex export from nucleus	0.002
+cell death	0.002
+regulation of Ras protein signal transduction	0.002
+negative regulation of MAP kinase activity	0.002
+negative regulation of programmed cell death	0.002
+cell surface receptor signaling pathway	0.002
+hormone-mediated signaling pathway	0.002
+positive regulation of epidermal growth factor receptor signaling pathway	0.002
+macrophage chemotaxis	0.002
+positive regulation of SMAD protein import into nucleus	0.002
+renal system development	0.002
+negative regulation of hydrogen peroxide-induced cell death	0.002
+glomerular visceral epithelial cell development	0.002
+telomere tethering at nuclear periphery	0.002
+nuclear transport	0.002
+response to oxidative stress	0.002
+establishment of integrated proviral latency	0.002
+response to bacterium	0.002
+defense response to Gram-negative bacterium	0.002
+antibacterial humoral response	0.002
+membrane disruption in other organism	0.002
+protein targeting to Golgi	0.002
+cellular response to vasopressin	0.002
+protein transmembrane transport	0.002
+protein localization to nucleolus	0.002
+positive regulation of protein binding	0.002
+DNA metabolic process	0.002
+pre-miRNA export from nucleus	0.002
+cytokine production involved in inflammatory response	0.002
+positive regulation of TORC1 signaling	0.002
+cellular protein complex localization	0.002
+nuclear DNA replication	0.002
+snRNA import into nucleus	0.002
+response to type I interferon	0.002
+type I interferon signaling pathway	0.002
+response to interferon-gamma	0.002
+negative regulation of sequence-specific DNA binding transcription factor activity	0.002
+regulation of angiogenesis	0.002
+negative regulation of endothelial cell migration	0.002
+regulation of Fas signaling pathway	0.002
+response to retinoic acid	0.002
+telomere maintenance	0.002
+negative regulation of cellular component movement	0.002
+negative regulation of viral transcription	0.002
+DNA damage response, signal transduction by p53 class mediator resulting in transcription of p21 class mediator	0.002
+interferon-gamma-mediated signaling pathway	0.002
+regulation of extrinsic apoptotic signaling pathway via death domain receptors	0.002
+DNA ligation	0.002
+DNA unwinding involved in DNA replication	0.002
+mitotic DNA integrity checkpoint	0.002
+mitotic recombination	0.002
+apoptotic chromosome condensation	0.002
+sister chromatid segregation	0.002
+DNA topological change	0.002
+embryonic cleavage	0.002
+hematopoietic progenitor cell differentiation	0.002
+resolution of meiotic recombination intermediates	0.002
+positive regulation of single stranded viral RNA replication via double stranded DNA intermediate	0.002
+response to epidermal growth factor	0.002
+MAPK import into nucleus	0.002
+RNA import into nucleus	0.002
+cellular response to interferon-alpha	0.002
+regulation of mitotic sister chromatid separation	0.002
+positive regulation of protein import into nucleus	0.002
+positive regulation of heterochromatin assembly	0.002
+mRNA export from nucleus in response to heat stress	0.002
+postreplication repair	0.002
+regulation of protein export from nucleus	0.002
+tRNA re-export from nucleus	0.002
+positive regulation of androgen receptor activity	0.002
+negative regulation of toll-like receptor signaling pathway	0.002
+negative regulation of interleukin-8 production	0.002
+negative regulation of type I interferon-mediated signaling pathway	0.002
+negative regulation of NF-kappaB transcription factor activity	0.002
+negative regulation of lipopolysaccharide-mediated signaling pathway	0.002
+negative regulation of interferon-beta production	0.002
+negative regulation of tumor necrosis factor production	0.002
+somatic diversification of immunoglobulins	0.002
+negative regulation of gene silencing by miRNA	0.002
+regulation of stem cell population maintenance	0.002
+nuclear-transcribed mRNA catabolic process	0.002
+tRNA processing	0.002
+positive regulation of G1/S transition of mitotic cell cycle	0.002
+double-strand break repair via nonhomologous end joining	0.002
+lipid biosynthetic process	0.002
+proteasomal protein catabolic process	0.002
+positive regulation of astrocyte differentiation	0.002
+protein K63-linked ubiquitination	0.002
+protein polyubiquitination	0.002
+cellular response to drug	0.002
+maturation of 5S rRNA	0.002
+positive regulation of cytotoxic T cell differentiation	0.002
+blastocyst formation	0.002
+maturation of 5.8S rRNA	0.002
+negative regulation of protein refolding	0.002
+cellular response to transforming growth factor beta stimulus	0.002
+negative regulation of chaperone-mediated autophagy	0.002
+regulation of ATPase activity	0.002
+regulation of mRNA polyadenylation	0.002
+maturation of LSU-rRNA	0.002
+neuronal stem cell population maintenance	0.002
+oligodendrocyte differentiation	0.002
+cardiac muscle contraction	0.002
+response to wounding	0.002
+regulation of keratinocyte proliferation	0.002
+negative regulation of type B pancreatic cell apoptotic process	0.002
+regulation of wound healing	0.002
+negative regulation of keratinocyte differentiation	0.002
+mitotic G2 DNA damage checkpoint	0.002
+embryonic organ development	0.002
+gastrulation	0.002
+regulation of DNA-templated transcription, elongation	0.002
+negative regulation of isotype switching to IgA isotypes	0.002
+primitive hemopoiesis	0.002
+positive regulation of NFAT protein import into nucleus	0.002
+cellular calcium ion homeostasis	0.002
+protein deubiquitination	0.002
+generation of catalytic spliceosome for first transesterification step	0.002
+meiotic chromosome separation	0.002
+positive regulation of mitotic metaphase/anaphase transition	0.002
+positive regulation of mitotic sister chromatid separation	0.002
+methylation-dependent chromatin silencing	0.002
+response to estradiol	0.002
+negative regulation of astrocyte differentiation	0.002
+membrane protein ectodomain proteolysis	0.002
+neural fold bending	0.002
+artery development	0.002
+ventricular septum development	0.002
+anatomical structure morphogenesis	0.002
+negative regulation of substrate adhesion-dependent cell spreading	0.002
+regulation of ruffle assembly	0.002
+chromosome passenger complex localization to kinetochore	0.002
+integrin-mediated signaling pathway	0.002
+regulation of fibroblast migration	0.002
+negative regulation of GTPase activity	0.002
+translational initiation	0.002
+ribosomal small subunit assembly	0.002
+SRP-dependent cotranslational protein targeting to membrane	0.002
+movement of cell or subcellular component	0.002
+natural killer cell mediated cytotoxicity	0.002
+cellular response to fibroblast growth factor stimulus	0.002
+cellular response to prolactin	0.002
+cellular response to wortmannin	0.002
+cellular response to interleukin-2	0.002
+miRNA transport	0.002
+regulation of cardiac muscle contraction by regulation of the release of sequestered calcium ion	0.002
+regulation of ryanodine-sensitive calcium-release channel activity	0.002
+regulation of cardiac conduction	0.002
+lipoprotein metabolic process	0.002
+negative regulation of smoothened signaling pathway involved in dorsal/ventral neural tube patterning	0.002
+regulation of cardiac muscle contraction	0.002
+regulation of heart rate	0.002
+cell communication by electrical coupling involved in cardiac conduction	0.002
+cellular response to glucose stimulus	0.002
+cellular response to epinephrine stimulus	0.002
+modulation of synaptic transmission	0.002
+regulation of protein processing	0.002
+calcium-mediated signaling using intracellular calcium source	0.002
+regulation of cytosolic calcium ion concentration	0.002
+regulation of bicellular tight junction assembly	0.002
+regulation of proteasomal protein catabolic process	0.002
+sperm capacitation	0.002
+stimulatory C-type lectin receptor signaling pathway	0.002
+cellular response to parathyroid hormone stimulus	0.002
+peptidyl-threonine phosphorylation	0.002
+mesoderm formation	0.002
+microtubule polymerization	0.002
+regulation of meiotic nuclear division	0.002
+positive regulation of synapse maturation	0.002
+positive regulation of synaptic plasticity	0.002
+regulation of dendrite development	0.002
+nose development	0.002
+embryonic forelimb morphogenesis	0.002
+lateral ventricle development	0.002
+corpus callosum development	0.002
+olfactory bulb development	0.002
+neural tube patterning	0.002
+pericardium development	0.002
+negative regulation of G-protein coupled receptor protein signaling pathway	0.002
+establishment of planar polarity	0.002
+embryonic hindlimb morphogenesis	0.002
+Notch signaling pathway	0.002
+regulation of retinoic acid receptor signaling pathway	0.002
+positive regulation of histone H3-K4 methylation	0.002
+positive regulation of vitamin D receptor signaling pathway	0.002
+regulation of vitamin D receptor signaling pathway	0.002
+Schwann cell proliferation	0.002
+positive regulation of transforming growth factor beta receptor signaling pathway	0.002
+negative regulation of RNA splicing	0.002
+negative regulation of muscle cell differentiation	0.002
+negative regulation of ubiquitin protein ligase activity	0.002
+negative regulation of mitotic cell cycle	0.002
+response to hormone	0.002
+protein localization to Golgi apparatus	0.002
+protein localization to cilium	0.002
+positive regulation of DNA-dependent DNA replication initiation	0.002
+potassium ion transport	0.002
+histone phosphorylation	0.002
+mitotic G1 DNA damage checkpoint	0.002
+regulation of gene silencing	0.002
+regulation of stress fiber assembly	0.002
+endosomal transport	0.002
+regulation of synaptic plasticity	0.002
+positive regulation of beta-amyloid formation	0.002
+negative regulation of Wnt signaling pathway	0.002
+regulation of cellular protein localization	0.002
+negative regulation of protein binding	0.002
+circadian behavior	0.002
+response to endoplasmic reticulum stress	0.002
+apoptotic mitochondrial changes	0.002
+regulation of gene expression	0.002
+RNA localization	0.002
+DNA recombination	0.002
+reciprocal meiotic recombination	0.002
+regulation of L-glutamate transport	0.002
+positive regulation of transcription initiation from RNA polymerase II promoter	0.002
+positive regulation of pathway-restricted SMAD protein phosphorylation	0.002
+chromosome separation	0.002
+cytoskeleton-dependent intracellular transport	0.002
+intracellular steroid hormone receptor signaling pathway	0.002
+lung epithelial cell differentiation	0.002
+nucleus organization	0.002
+protein methylation	0.002
+N-acetylglucosamine metabolic process	0.002
+glycoprotein catabolic process	0.002
+protein deglycosylation	0.002
+hair cycle	0.002
+calcium-dependent cell-cell adhesion via plasma membrane cell adhesion molecules	0.002
+gene silencing by miRNA	0.002
+positive regulation of MAP kinase activity	0.002
+regulation of cellular response to hypoxia	0.002
+cytoskeleton organization	0.002
+negative regulation of kinase activity	0.002
+positive regulation of gene silencing by miRNA	0.002
+glycerophospholipid biosynthetic process	0.002
+negative regulation of hippo signaling	0.002
+positive regulation of cellular biosynthetic process	0.002
+response to hypoxia	0.002
+wound healing, spreading of epidermal cells	0.002
+regulation of low-density lipoprotein particle clearance	0.002
+positive regulation of receptor-mediated endocytosis	0.002
+positive regulation of low-density lipoprotein particle receptor biosynthetic process	0.002
+regulation of intrinsic apoptotic signaling pathway in response to DNA damage by p53 class mediator	0.002
+regulation of lipid transport by positive regulation of transcription from RNA polymerase II promoter	0.002
+cellular response to hormone stimulus	0.002
+regulation of sequence-specific DNA binding transcription factor activity	0.002
+membrane depolarization	0.002
+negative regulation of transcription from RNA polymerase II promoter in response to endoplasmic reticulum stress	0.002
+positive regulation of endothelial cell proliferation	0.002
+response to muscle stretch	0.002
+SMAD protein import into nucleus	0.002
+negative regulation of protein autophosphorylation	0.002
+negative regulation by host of viral transcription	0.002
+positive regulation of cell differentiation	0.002
+leading edge cell differentiation	0.002
+positive regulation of smooth muscle cell proliferation	0.002
+outflow tract morphogenesis	0.002
+positive regulation of pri-miRNA transcription from RNA polymerase II promoter	0.002
+positive regulation of DNA-templated transcription, initiation	0.002
+response to cAMP	0.002
+angiogenesis	0.002
+positive regulation of monocyte differentiation	0.002
+release of cytochrome c from mitochondria	0.002
+regulation of cell death	0.002
+eyelid development in camera-type eye	0.002
+axon regeneration	0.002
+microglial cell activation	0.002
+Fc-epsilon receptor signaling pathway	0.002
+cellular response to potassium ion starvation	0.002
+transforming growth factor beta receptor signaling pathway	0.002
+microtubule anchoring at centrosome	0.002
+centrosome-templated microtubule nucleation	0.002
+plus-end-directed vesicle transport along microtubule	0.002
+mitotic spindle midzone assembly	0.002
+actomyosin contractile ring assembly	0.002
+mitotic spindle elongation	0.002
+kinetochore organization	0.002
+glycogen metabolic process	0.002
+entrainment of circadian clock by photoperiod	0.002
+locomotory exploration behavior	0.002
+positive regulation of fibroblast migration	0.002
+positive regulation of lipid catabolic process	0.002
+activation of phospholipase C activity	0.002
+lipopolysaccharide-mediated signaling pathway	0.002
+platelet activation	0.002
+positive regulation of mucus secretion	0.002
+positive regulation of MAPK cascade	0.002
+regulation of release of sequestered calcium ion into cytosol	0.002
+positive regulation of cellular glucuronidation	0.002
+positive regulation of insulin secretion	0.002
+positive regulation of actin filament polymerization	0.002
+cellular response to prostaglandin E stimulus	0.002
+cellular response to ethanol	0.002
+macrophage activation involved in immune response	0.002
+response to morphine	0.002
+TRAM-dependent toll-like receptor 4 signaling pathway	0.002
+positive regulation of wound healing	0.002
+positive regulation of synaptic transmission, GABAergic	0.002
+regulation of insulin secretion involved in cellular response to glucose stimulus	0.002
+negative regulation of sodium ion transmembrane transporter activity	0.002
+positive regulation of cell-substrate adhesion	0.002
+apical junction assembly	0.002
+G0 to G1 transition	0.002
+cerebral cortex radially oriented cell migration	0.002
+regulation of intracellular protein transport	0.002
+central nervous system neuron axonogenesis	0.002
+regulation of neuron projection development	0.002
+positive regulation of axon regeneration	0.002
+neuron projection extension	0.002
+neurofilament cytoskeleton organization	0.002
+neuron development	0.002
+generation of neurons	0.002
+protein localization to chromosome, centromeric region	0.002
+positive regulation of microtubule polymerization	0.002
+negative regulation of microtubule polymerization or depolymerization	0.002
+regulation of focal adhesion assembly	0.002
+regulation of microtubule-based process	0.002
+regulation of axon extension	0.002
+establishment of protein localization to plasma membrane	0.002
+platelet-derived growth factor receptor-beta signaling pathway	0.002
+regulation of microtubule polymerization	0.002
+regulation of actin cytoskeleton organization	0.002
+mRNA transcription	0.002
+positive regulation of DNA damage response, signal transduction by p53 class mediator	0.002
+intrinsic apoptotic signaling pathway by p53 class mediator	0.002
+regulation of skeletal muscle cell differentiation	0.002
+regulation of viral genome replication	0.002
+regulation of androgen receptor signaling pathway	0.002
+cell growth	0.002
+positive regulation of intracellular estrogen receptor signaling pathway	0.002
+nucleotide-excision repair, DNA damage recognition	0.002
+global genome nucleotide-excision repair	0.002
+nucleotide-excision repair, preincision complex assembly	0.002
+nucleotide-excision repair	0.002
+nucleotide-excision repair, DNA duplex unwinding	0.002
+negative regulation of catalytic activity	0.002
+positive regulation of mRNA catabolic process	0.002
+mRNA destabilization	0.002
+positive regulation of ubiquitin-protein transferase activity	0.002
+positive regulation of protein localization to nucleus	0.002
+female meiosis chromosome segregation	0.002
+protein destabilization	0.002
+positive regulation of proteolysis	0.002
+protein ubiquitination	0.002
+regulation of cell cycle G2/M phase transition	0.002
+positive regulation of peptidyl-threonine phosphorylation	0.002
+negative regulation of centriole replication	0.002
+regulation of spindle checkpoint	0.002
+hyaluronan catabolic process	0.002
+maintenance of animal organ identity	0.002
+regulation of translational termination	0.002
+cellular response to amino acid stimulus	0.002
+hepatocyte dedifferentiation	0.002
+cellular response to putrescine	0.002
+circadian regulation of translation	0.002
+response to calcium ion	0.002
+response to sodium phosphate	0.002
+3'-UTR-mediated mRNA destabilization	0.002
+cellular response to estradiol stimulus	0.002
+response to rapamycin	0.002
+negative regulation of defense response to virus	0.002
+mRNA metabolic process	0.002
+negative regulation of type I interferon production	0.002
+defense response to virus	0.002
+regulation of membrane repolarization	0.002
+regulation of heart rate by hormone	0.002
+negative regulation of peptidyl-serine dephosphorylation	0.002
+negative regulation of cysteine-type endopeptidase activity involved in apoptotic process	0.002
+regulation of potassium ion transmembrane transporter activity	0.002
+membrane repolarization during cardiac muscle cell action potential	0.002
+regulation of heart rate by cardiac conduction	0.002
+mitochondrion organization	0.002
+clustering of voltage-gated sodium channels	0.002
+regulation of Rac protein signal transduction	0.002
+regulation of cell motility	0.002
+metaphase/anaphase transition of mitotic cell cycle	0.002
+transport along microtubule	0.002
+retrograde transport, endosome to Golgi	0.002
+digestive tract development	0.002
+tissue regeneration	0.002
+positive regulation of histone phosphorylation	0.002
+response to DDT	0.002
+cellular response to organic cyclic compound	0.002
+ventricular cardiac muscle cell development	0.002
+oocyte maturation	0.002
+regulation of mitotic cell cycle spindle assembly checkpoint	0.002
+histone H3-S10 phosphorylation involved in chromosome condensation	0.002
+cellular response to fatty acid	0.002
+cellular response to iron(III) ion	0.002
+positive regulation of cardiac muscle cell proliferation	0.002
+platelet degranulation	0.002
+CRD-mediated mRNA stabilization	0.002
+positive regulation of type I interferon production	0.002
+protein localization to cytoplasmic stress granule	0.002
+positive regulation of centrosome duplication	0.002
+interkinetic nuclear migration	0.002
+positive regulation of cardiac muscle contraction	0.002
+ERBB2 signaling pathway	0.002
+positive regulation of lamellipodium assembly	0.002
+positive regulation of protein import into nucleus, translocation	0.002
+regulation of nitric-oxide synthase activity	0.002
+cardiac muscle cell apoptotic process	0.002
+skeletal muscle contraction	0.002
+response to estrogen	0.002
+protein import into mitochondrial outer membrane	0.002
+mitochondrial transport	0.002
+positive regulation of nitric oxide biosynthetic process	0.002
+chaperone-mediated protein complex assembly	0.002
+positive regulation of cell size	0.002
+response to salt stress	0.002
+protein unfolding	0.002
+receptor-mediated endocytosis	0.002
+protein localization to microtubule	0.002
+positive regulation of microtubule plus-end binding	0.002
+negative regulation of microtubule binding	0.002
+negative regulation of microtubule polymerization	0.002

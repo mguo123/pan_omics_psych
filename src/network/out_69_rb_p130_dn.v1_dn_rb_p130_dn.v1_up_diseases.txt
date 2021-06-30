@@ -1,0 +1,511 @@
+Cancer	0.41214600000000007
+Joubert syndrome	0.218116
+Nephronophthisis	0.20926800000000004
+Intellectual disability	0.187424
+Meckel syndrome	0.177206
+Microcephaly	0.16567600000000002
+Muscular atrophy	0.12677000000000002
+Polydactyly	0.114798
+Retinitis pigmentosa	0.10663600000000001
+Senior-Loken syndrome	0.105702
+Lissencephaly	0.078712
+Bardet-Biedl Syndrome	0.077966
+Cystic kidney disease	0.07675799999999999
+Ciliopathy	0.07594
+Seckel syndrome	0.07586799999999999
+Orofaciodigital syndrome	0.07180999999999998
+Roberts syndrome	0.06758800000000001
+Fundus dystrophy	0.06712399999999999
+Amyotrophic Lateral Sclerosis	0.067038
+Cornelia de Lange syndrome	0.059104
+Frontotemporal dementia	0.055788
+Asphyxiating thoracic dystrophy	0.05508
+Coloboma	0.054392
+Spinal muscular atrophy	0.0453
+Miller-Dieker lissencephaly syndrome	0.044438
+relapsing-remitting multiple sclerosis	0.043612000000000005
+Male infertility	0.041178
+Vascular disease	0.039486
+Leukemia	0.038453999999999995
+Nager acrofacial dysostosis	0.038334
+diabetes mellitus	0.03793
+Motor neuron disease	0.037364
+Hydrolethalus syndrome	0.035634
+Mixed connective tissue disease	0.035137999999999996
+Leber congenital amaurosis	0.031894
+KBG syndrome	0.031854
+Schizophrenia	0.031818
+Influenza	0.031424
+Epilepsy	0.031206
+cone-rod dystrophy	0.030856
+Blindness	0.030366
+Alzheimer's disease	0.02976
+Systemic scleroderma	0.028876000000000002
+Neurodegenerative disease	0.028506
+Neuropathy	0.028112
+Obesity	0.027636
+Parkinson's disease	0.027176000000000002
+Angelman syndrome	0.02707
+Lupus erythematosus	0.02539
+Acquired immunodeficiency syndrome	0.02518
+Kidney disease	0.024704
+Obstructive sleep apnea	0.024638
+Peripheral Neuropathy	0.024146
+Spinocerebellar ataxia type 1	0.02311
+Usher syndrome	0.022776000000000005
+Cone dystrophy	0.022726
+Acne	0.022274000000000002
+Toxic encephalopathy	0.021712
+Sensorineural hearing loss	0.021479999999999996
+Liver Cirrhosis	0.021335999999999997
+CREST syndrome	0.021184
+Autistic Disorder	0.020558
+Hypertension	0.020542
+Patau syndrome	0.020520000000000004
+Periventricular nodular heterotopia	0.019694000000000003
+triple-A syndrome	0.01921
+Oxyphilic adenoma	0.019052
+Hypersensitivity reaction type II disease	0.018936
+Treacher Collins syndrome	0.018704000000000002
+Syphilis	0.018594000000000003
+Spinocerebellar ataxia type 11	0.018372
+Mastocytosis	0.018272
+Polycystic kidney disease	0.018096
+Xeroderma pigmentosum	0.018074
+Acute poststreptococcal glomerulonephritis	0.017902
+Essential tremor	0.017509999999999998
+Bruxism	0.017408
+Anterior horn cell disease	0.017076
+End stage renal failure	0.016936
+Abdominal aortic aneurysm	0.016774
+SC phocomelia syndrome	0.016698
+Bejel	0.016668
+Cockayne syndrome	0.016364
+Rabies	0.01607
+Nail disease	0.01602
+Sudden infant death syndrome	0.015844
+Williams-Beuren syndrome	0.015664
+Aortic valve insufficiency	0.01565
+Cogan syndrome	0.015532
+Premature ovarian failure	0.015514
+Left ventricular noncompaction	0.015488
+Carney complex	0.015374
+Carcinoma	0.015256
+Congenital myasthenic syndrome	0.015212
+Kidney failure	0.015128
+Mitral valve stenosis	0.01506
+Renal osteodystrophy	0.014984
+Hypertrophy of breast	0.014802
+Familial juvenile hyperuricemic nephropathy	0.014778000000000001
+Cholangitis	0.014756
+Contagious pustular dermatitis	0.014634000000000001
+Allergic hypersensitivity disease	0.014598000000000002
+Yaws	0.014522
+Hyperphosphatemia	0.014492000000000001
+Arthritis	0.01442
+Plague	0.014332000000000001
+Situs Inversus	0.014317999999999999
+Generalized anxiety disorder	0.014276
+progressive supranuclear palsy	0.014268
+Advanced sleep phase syndrome	0.014254
+Perry Syndrome	0.014216
+lung cancer	0.014122
+Acute cystitis	0.014118
+Meier-Gorlin syndrome	0.014039999999999999
+Panic disorder	0.013984
+Lethal congenital contracture syndrome	0.013948
+Mitral valve insufficiency	0.013934
+DiGeorge syndrome	0.013874
+Paraplegia	0.013864000000000001
+Muscular dystrophy	0.013824
+Dyspepsia	0.013814
+Cleft Lip	0.01366
+Hydrocephalus	0.013648
+tick-borne encephalitis	0.013644
+Congenital dyserythropoietic anemia	0.013623999999999999
+Rheumatic fever	0.01359
+Gangliosidosis	0.013295999999999999
+Clostridium difficile colitis	0.013266
+Ptosis	0.013208000000000001
+Aphasia	0.013208000000000001
+Spondylolysis	0.0132
+Heart disease	0.013193999999999999
+Anhidrosis	0.013158
+Koolen de Vries syndrome	0.013096
+Blood group incompatibility	0.013058
+Urinary bladder cancer	0.012996
+PITT-HOPKINS SYNDROME	0.012816000000000001
+Spinocerebellar ataxia type 17	0.012792
+Gender identity disorder	0.01272
+Prader-Willi syndrome	0.012714
+Eosinophilia	0.01252
+Night Blindness	0.012484
+Trigeminal neuralgia	0.012098000000000001
+Takayasu's arteritis	0.012074
+Acrofacial dysostosis Rodriguez type	0.011958
+Alstrom syndrome	0.011932
+Renal Cell Carcinoma	0.011884
+Venous insufficiency	0.01174
+ovarian cancer	0.011692000000000001
+Paranoid personality disorder	0.011672
+Chromosome 17q12 deletion syndrome	0.011568
+Constipation	0.011458
+Eating disorder	0.011422
+Patellar tendinitis	0.011264
+thrombocytopenia-absent radius syndrome	0.011035999999999999
+Laryngotracheitis	0.010954
+Aarskog-Scott syndrome	0.010832000000000001
+Coloboma of optic nerve	0.010603999999999999
+Achalasia	0.010603999999999999
+Narcolepsy	0.010586
+Mastitis	0.010556
+Chromosome 17p13.3 duplication syndrome	0.010435999999999999
+chronic kidney disease	0.010428000000000002
+St. Louis encephalitis	0.010244
+Gastrointestinal anthrax	0.010196
+Multiple myeloma	0.01019
+Gastroparesis	0.01018
+Endometrial stromal nodule	0.010096
+Wiskott-Aldrich syndrome	0.00996
+Nephroblastoma	0.009948
+Myositis	0.00994
+Anxiety disorder	0.009926
+Osteomalacia	0.009874
+Osteitis fibrosa	0.009824
+Verbal auditory agnosia	0.00974
+MYELODYSPLASTIC SYNDROME	0.009722
+Pseudopterygium	0.009720000000000001
+Endomyocardial Fibrosis	0.009708
+Chromosome 4q21 deletion syndrome	0.009702
+Multiple endocrine neoplasia type 2A	0.009699999999999999
+Peliosis Hepatis	0.009634
+Hyperparathyroidism	0.009608
+Mucoepidermoid carcinoma	0.00959
+Thrombocytopenia	0.00954
+Cystoisosporiasis	0.009534
+Substance abuse	0.009442
+Renal oncocytoma	0.009438
+Iridocyclitis	0.009428
+Alternating exotropia	0.009418
+Vertebrobasilar insufficiency	0.009414
+Trichorhinophalangeal syndrome type II	0.009408
+Retinal Degeneration	0.009231999999999999
+Chromosome 1p36 deletion syndrome	0.009215999999999998
+Plasmacytoma	0.009196
+tuberculosis	0.009179999999999999
+Personality disorder	0.009151999999999999
+Alagille syndrome	0.009114
+Cerebrovascular disease	0.008981999999999999
+Sarcoma	0.008934
+Asperger syndrome	0.008904
+Goldberg-Shprintzen syndrome	0.008878
+Jensen syndrome	0.008811999999999999
+Dysgraphia	0.008796
+Chromosome 18p deletion syndrome	0.008778000000000001
+Dystonia	0.00873
+Anorexia nervosa	0.008694
+Somatization disorder	0.00868
+Orbital disease	0.008638
+Dissociative disorder	0.00863
+Leprosy	0.008628
+Angiomyolipoma	0.008586
+Chronic intestinal vascular insufficiency	0.008558
+Shwachman-Diamond syndrome	0.008554
+Descending colon cancer	0.008544000000000001
+Henoch-Schoenlein purpura	0.008504
+Alcohol dependence	0.008502000000000001
+Tropical spastic paraparesis	0.008442
+Primary pigmented nodular adrenocortical disease	0.008428000000000001
+Fibrosarcoma	0.008381999999999999
+Familial retinoblastoma	0.008376
+Ischemic colitis	0.00836
+Chromosome 17q11.2 deletion syndrome, 1.4Mb	0.008352
+Paralytic squint	0.00835
+Meesmann corneal dystrophy	0.008317999999999999
+Spinocerebellar ataxia type 10	0.008286
+Vulvovaginal candidiasis	0.008262
+Rift Valley fever	0.008254
+Hypermobility syndrome	0.008222
+Lobular neoplasia	0.008204000000000001
+Swine influenza	0.008192
+interstitial lung disease	0.008173999999999999
+Cerebral amyloid angiopathy	0.008154
+Chromosome 2p16.1-p15 deletion syndrome	0.008146
+Smooth muscle tumor	0.008134
+Parotid gland cancer	0.008128
+Nocardiosis	0.008084
+Progressive muscular atrophy	0.008054
+Metanephric adenoma	0.008052
+Velocardiofacial syndrome	0.008048
+Asthenopia	0.008042
+Malignant hyperthermia	0.008022
+Mulibrey nanism	0.00801
+Bowen-Conradi syndrome	0.007994
+Ophthalmoplegia	0.007988
+Hydranencephaly	0.007988
+Alveolar soft part sarcoma	0.007974
+Gastric antral vascular ectasia	0.007968
+Dementia	0.007966
+Spastic diplegia	0.007948
+Infectious mononucleosis	0.007940000000000001
+Amebiasis	0.00792
+renal-hepatic-pancreatic dysplasia	0.007916000000000001
+Keratitis	0.007908
+Variant Creutzfeldt-Jakob disease	0.007888
+Multiple Endocrine Neoplasia Type 1	0.007878
+Paget's disease of bone	0.007856
+Acute Promyelocytic Leukemia	0.00784
+Intestinal pseudo-obstruction	0.007818
+Pick's disease	0.007784
+Werner syndrome	0.007777999999999999
+periodontitis	0.007776
+Blue color blindness	0.00777
+Prostate carcinoma in situ	0.00777
+Telangiectasis	0.007764
+Apraxia	0.007762
+Pyuria	0.0077599999999999995
+steroid-induced glaucoma	0.007744
+Hypomyelinating leukoencephalopathy	0.007726
+3p- syndrome	0.007719999999999999
+Varicose veins	0.0077080000000000004
+Adenoiditis	0.0076820000000000005
+Goodpasture syndrome	0.0076820000000000005
+Vaginal carcinoma	0.0076760000000000005
+Choanal atresia	0.007672
+Inclusion body myositis	0.007644
+Cardiomyopathy	0.007594
+Spinocerebellar ataxia type 31	0.007572
+Agoraphobia	0.007572
+Skin cancer	0.007567999999999999
+Cellulitis	0.007567999999999999
+Nicotine dependence	0.00753
+Wernicke-Korsakoff syndrome	0.007514
+Lipomatosis	0.00751
+Turner syndrome	0.007496
+Dental pulp necrosis	0.007496
+post-traumatic stress disorder	0.007484
+Atrioventricular block	0.007454
+Smallpox	0.007437999999999999
+Irregular astigmatism	0.007426
+Kleefstra syndrome	0.00739
+Migraine	0.007386
+Myelofibrosis	0.007386
+Spinocerebellar ataxia type 5	0.007384
+Lymphangioleiomyomatosis	0.007372
+Synovial sarcoma	0.007338
+Transient tic disorder	0.0073360000000000005
+Atherosclerosis	0.00733
+Partial central choroid dystrophy	0.007322
+Lennox-Gastaut syndrome	0.007312
+Radioulnar synostosis	0.00731
+Partington syndrome	0.00729
+Oculogyric crisis	0.0072759999999999995
+Candidiasis	0.00725
+Periodic limb movement disorder	0.007246000000000001
+Dysthymic disorder	0.007234
+Congenital bile acid synthesis defect	0.007202
+Histrionic personality disorder	0.007182
+Spinal cord disease	0.007182
+Subepithelial mucinous corneal dystrophy	0.007156
+Papillary adenoma	0.007154
+Polycythemia Vera	0.007148
+Aortitis	0.0071319999999999995
+Ataxia telangiectasia	0.007128
+Mesenchymal chondrosarcoma	0.007122
+Caroli disease	0.007122
+Vasculitis	0.007118
+Baraitser-Winter syndrome	0.00711
+interleukin-7 receptor alpha deficiency	0.007104
+Coronary artery disease	0.007086
+Hepatitis C	0.007082
+Suppurative periapical periodontitis	0.007076
+Mantle cell lymphoma	0.0070739999999999996
+Oligohydramnios	0.007062000000000001
+Bullous pemphigoid	0.007056
+Cerebellar Ataxia	0.007046
+Syringomyelia	0.0070339999999999995
+Persistent hyperplastic primary vitreous	0.007019999999999999
+Pityriasis versicolor	0.007011999999999999
+inclusion-cell disease	0.0069900000000000006
+West Nile encephalitis	0.006988
+Cutaneous anthrax	0.006974
+Myopathy	0.006964000000000001
+Cadasil	0.006956
+Pyruvate decarboxylase deficiency	0.006952
+Fatty liver disease	0.0069500000000000004
+Porencephaly	0.006938
+Meningeal melanomatosis	0.006936
+Machado-Joseph disease	0.006934
+Vesicoureteral reflux	0.006928
+ARC syndrome	0.006908
+Omphalocele	0.006896
+mast-cell sarcoma	0.006889999999999999
+Calcinosis	0.006888
+Charcot-Marie-Tooth disease type X	0.006886
+Shigellosis	0.006886
+Azoospermia	0.006882
+Staphyloenterotoxemia	0.00687
+Lung disease	0.006860000000000001
+adult-onset Still's disease	0.006849999999999999
+Pleomorphic liposarcoma	0.006842
+Acanthosis nigricans	0.006842
+Malaria	0.00683
+Chronic obstructive pulmonary disease	0.006826
+Keratoconus	0.006826
+Waterhouse-Friderichsen syndrome	0.0068200000000000005
+Glaucoma	0.006816
+Carotid artery thrombosis	0.006814
+Cavernous hemangioma	0.006798
+Astigmatism	0.006791999999999999
+Auditory agnosia	0.006788000000000001
+Focal dermal hypoplasia	0.006784
+Weaver syndrome	0.006777999999999999
+Scrapie	0.006774
+Rothmund-Thomson syndrome	0.0067599999999999995
+Cleft palate	0.0067480000000000005
+Dilated cardiomyopathy	0.006746
+Silver-Russell syndrome	0.006742
+Mitral valve prolapse	0.006732
+Chandler syndrome	0.006728
+pilocytic astrocytoma	0.0067220000000000005
+Tooth ankylosis	0.006712
+Acrofacial dysostosis	0.006704
+Monkeypox	0.0067
+Legionnaires' disease	0.0066879999999999995
+Brachydactyly	0.0066820000000000004
+Chronic myeloproliferative disease	0.0066760000000000005
+Mitochondrial myopathy	0.006666
+Temporal lobe epilepsy	0.006666
+Enophthalmos	0.006664
+Juvenile myoclonic epilepsy	0.0066619999999999995
+Postgastrectomy syndrome	0.0066619999999999995
+Constrictive pericarditis	0.006656
+Serine deficiency	0.006652
+Primary biliary cirrhosis	0.006652
+Dubowitz Syndrome	0.006646
+Enamel erosion	0.006646
+Larsen syndrome	0.006642
+Spondylosis	0.006624
+Branchiootorenal syndrome	0.00662
+Optic papillitis	0.00662
+Hypophosphatemia	0.00661
+psoriasis	0.0066040000000000005
+Localized scleroderma	0.006596
+Spermatocytoma	0.006592
+Multiple Sclerosis	0.0065899999999999995
+Eye disease	0.0065899999999999995
+Lateral sclerosis	0.006588
+Bipolar Disorder	0.00658
+Malignant fibroxanthoma	0.006572
+Hypoglycemia	0.006566
+Diamond-Blackfan anemia	0.006558
+Kluver-Bucy syndrome	0.006548
+Rheumatic heart disease	0.006548
+Cystic nephroma	0.006546000000000001
+Cataract	0.006542
+Spongiotic dermatitis	0.006534
+Pelizaeus-Merzbacher disease	0.006532
+Disseminated intravascular coagulation	0.006528
+Multiple endocrine neoplasia type 2B	0.006522
+Pathological gambling	0.006522
+Corneal edema	0.0065179999999999995
+Dependent personality disorder	0.006502
+Leiomyomatosis	0.006502
+Angiosarcoma	0.006464
+Ovarian mucinous cystadenocarcinoma	0.006462
+Common cold	0.006452
+Nephritis	0.006448000000000001
+Loeffler endocarditis	0.006442
+Branchiootic syndrome	0.00644
+Rectal prolapse	0.00644
+Gingival overgrowth	0.006438
+Chronic polyneuropathy	0.006438
+Glycogen storage disease IV	0.006424
+Meningeal melanocytoma	0.00642
+Vaccinia	0.00642
+Infertility	0.00641
+Vitelliform macular dystrophy	0.0064
+Rubeosis iridis	0.00639
+Tracheal stenosis	0.006384
+Aicardi syndrome	0.006382
+Atrioventricular septal defect	0.006378
+cystic fibrosis	0.006378
+Chondrosarcoma	0.006376000000000001
+Hypobetalipoproteinemia	0.006365999999999999
+Conduct disorder	0.006364
+Keratosis	0.006358
+pterygium	0.0063419999999999995
+Neutropenia	0.0063360000000000005
+Rickets	0.006333999999999999
+Fragile X syndrome	0.006324
+Chromoblastomycosis	0.0063159999999999996
+Thoracic aortic aneurysm	0.0063159999999999996
+Hemophagocytic lymphohistiocytosis	0.006298
+Adjustment disorder	0.006296
+Thrombocytosis	0.006286
+Mowat-Wilson syndrome	0.006284
+Wolf-Hirschhorn syndrome	0.006284
+Hepatitis B	0.006274
+Melanoma	0.006268
+Orchitis	0.006266
+Amyotrophic neuralgia	0.006253999999999999
+Tricuspid valve stenosis	0.00625
+Impetigo	0.006248
+locked-in syndrome	0.0062439999999999996
+Striatonigral degeneration	0.006242
+Occupational dermatitis	0.006235999999999999
+Galactosemia	0.006235999999999999
+Diabetic neuropathy	0.0062320000000000006
+Supraglottis cancer	0.006228
+Nodular nonsuppurative panniculitis	0.006218
+Luminal breast carcinoma	0.006214000000000001
+Borderline personality disorder	0.006208
+Down syndrome	0.0062039999999999994
+Tracheitis	0.0062
+Mixed glioma	0.006198
+Epididymitis	0.006196
+Gingivitis	0.006194
+Sjogren's syndrome	0.006188
+Lymphocytic choriomeningitis	0.0061719999999999995
+Enamel caries	0.0061719999999999995
+Vogt-Koyanagi-Harada disease	0.0061719999999999995
+Hereditary sensory neuropathy	0.006168
+Pulmonary tuberculosis	0.0061660000000000005
+Gingival recession	0.006163999999999999
+Megaesophagus	0.006162
+Dyskinesia of esophagus	0.006148
+Cryptorchidism	0.0061459999999999996
+Ohdo syndrome	0.006142000000000001
+Brain disease	0.006138
+obsessive-compulsive disorder	0.006128
+Kernicterus	0.006128
+Progressive multifocal leukoencephalopathy	0.006123999999999999
+Lichen planus	0.0061200000000000004
+Adenoma	0.006116
+Scurvy	0.006114
+Edwards syndrome	0.006114
+Irritable bowel syndrome	0.0060999999999999995
+Colorectal adenoma	0.006096
+Patent foramen ovale	0.006091999999999999
+Anterograde amnesia	0.006091999999999999
+Central sleep apnea	0.006088
+Premature ejaculation	0.006088
+Keratopathy	0.006088
+T lymphocyte deficiency	0.006082
+Amenorrhea	0.0060739999999999995
+Kennedy's disease	0.006072
+Dental caries	0.00607
+Hypogonadism	0.00607
+Orbital cellulitis	0.006066
+Hyperglycemia	0.006059999999999999
+Inverted papilloma	0.006058
+Charcot-Marie-Tooth disease type 4	0.006056
+Ameloblastoma	0.006051999999999999
+Hypospadias	0.00604
+Liver disease	0.006030000000000001
+Vascular cancer	0.006026
+Acinar cell carcinoma	0.0060220000000000004
+Diabetic macular edema	0.006018
+Suppression amblyopia	0.006018
+Epidermolysis bullosa acquisita	0.006018
+Autosomal dominant cerebellar ataxia	0.006016

@@ -1,0 +1,1296 @@
+---
+title: "2DR_mg_atac_diff_analysis"
+output: html_notebook
+---
+
+
+https://rockefelleruniversity.github.io/RU_ATAC_Workshop.html
+
+
+08/19/2020
+```{r}
+getwd()
+library(org.Hs.eg.db)
+# library(EnsDb.Hsapiens.v75)
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+# BiocManager::install("TxDb.Hsapiens.UCSC.hg19.knownGene")
+library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+# BiocManager::install("AnnotationDbi")
+library(DiffBind)
+library(ChIPQC)
+library(ChIPseeker)
+library(ChIPpeakAnno)
+library(DESeq2)
+library(soGGi)
+library(Rsubread)
+library(tracktables)
+
+library(limma)
+
+library(pheatmap)  
+library(RColorBrewer)
+library(viridis)
+library(reshape2)
+library(AnnotationDbi) 
+library(Biobase)
+library(tximport)
+
+library(tidyverse)
+library(stringr)
+library(Rtsne)
+library(caret)  
+library(clusterProfiler)
+library(pheatmap)
+library(AnnotationDbi)
+library(ReactomePA)
+library(annotate)
+library(seqinr)
+save_pheatmap_png <- function(x, filename, width=1200, height=1000, res = 200) {
+  png(filename, width = width, height = height, res = res)
+  grid::grid.newpage()
+  grid::grid.draw(x$gtable)
+  dev.off()
+}
+
+save_pheatmap_pdf <- function(x, filename, width=7, height=7) {
+   stopifnot(!missing(x))
+   stopifnot(!missing(filename))
+   pdf(filename, width=width, height=height)
+   grid::grid.newpage()
+   grid::grid.draw(x$gtable)
+   dev.off()
+}
+
+
+
+```
+
+
+# 1. Get Counts
+
+```{r}
+peak_files <- dir("../data/raw/atac_narrowPeak", pattern = "*.narrowPeak",  full.names = TRUE)
+peak_files
+myPeaks <- lapply(peak_files, ChIPQC:::GetGRanges, simple = TRUE)
+names(myPeaks) <- c("Astrocytes","H9_D0","H9_D10","H9_D2","H9_D28","H9_D4","SL_D0","SL_D2","SLC_D0","SLC_D2")
+
+```
+
+```{r}
+myGRangesList<-GRangesList(myPeaks)   
+reduced <- GenomicRanges::reduce(unlist(myGRangesList))
+consensusIDs <- paste0("consensus_", seq(1, length(reduced)))
+mcols(reduced) <- do.call(cbind, lapply(myGRangesList, function(x) (reduced %over% x) + 0))
+reducedConsensus <- reduced
+mcols(reducedConsensus) <- cbind(as.data.frame(mcols(reducedConsensus)), consensusIDs)
+consensusIDs <- paste0("consensus_", seq(1, length(reducedConsensus)))
+# consensusToCount <- soGGi:::runConsensusRegions(GRangesList(myPeaks), "none")
+```
+
+```{r}
+consensusToCount <- reducedConsensus
+occurrences <- elementMetadata(consensusToCount) %>% as.data.frame %>% dplyr::select(-consensusIDs) %>% 
+    rowSums
+
+table(occurrences) %>% rev %>% cumsum
+```
+
+```{r}
+consensusToCount
+save(consensusToCount, file = "../data/processed/fig1/atac/consensusToCount.RData")
+
+```
+
+
+
+load consensusToCount onto Sherlock
+
+```
+cd /Users/mguo123/Documents/pan_omics_psych/data/processed/fig1/atac
+
+scp consensusToCount.RData mguo123@login.sherlock.stanford.edu:/oak/stanford/groups/khavari/users/mguo123/psych_project/data/atac_diff_analysis
+```
+
+then ran on Sherlock
+
+```
+cd /oak/stanford/groups/khavari/users/mguo123/psych_project/data/atac_diff_analysis
+ml R
+```
+
+in R 
+```
+
+library(tidyverse)
+library(Rsubread)
+library(GenomicRanges)
+
+load('consensusToCount.RData')
+bamsToCount <- dir("/oak/stanford/groups/khavari/users/mguo123/psych_project/data/atac_bam_files/",full.names = TRUE, pattern = "*.\\.bam$")
+bamsToCount
+regionsToCount <- data.frame(GeneID = paste("ID", seqnames(consensusToCount), 
+    start(consensusToCount), end(consensusToCount), sep = "_"), Chr = seqnames(consensusToCount), 
+    Start = start(consensusToCount), End = end(consensusToCount), Strand = strand(consensusToCount))
+fcResults <- featureCounts(bamsToCount, annot.ext = regionsToCount, isPairedEnd = TRUE, 
+    countMultiMappingReads = FALSE, maxFragLength = 100)
+myCounts <- fcResults$counts
+
+colnames(myCounts) <- c("Astrocytes","H9_D0","H9_D10","H9_D2","H9_D28","H9_D4","SL_D0","SL_D2","SLC_D0","SLC_D2")
+
+save(myCounts, file = "countsFromATAC.RData")
+```
+
+on local computer
+```
+cd /Users/mguo123/Documents/pan_omics_psych/data/processed/fig1/atac
+scp  mguo123@login.sherlock.stanford.edu:/oak/stanford/groups/khavari/users/mguo123/psych_project/data/atac_diff_analysis/countsFromATAC.RData .
+
+```
+
+# 2. Differetial Peak Analysis
+
+```{r}
+load("../data/processed/fig1/atac/countsFromATAC.RData")
+dim(myCounts)
+head(myCounts)
+```
+
+```{r}
+# pseudo and normalize (TPM)
+myCounts_pseudo = myCounts+1
+myCounts_pseudo_norm = scale(myCounts_pseudo, center=FALSE, scale=colSums(myCounts_pseudo))*1e6
+mode(myCounts_pseudo_norm) <- "integer"
+
+```
+
+```{r}
+all_tissue_order = c('Astrocytes','SL_D0','SL_D2','SLC_D0', 'SLC_D2','H9_D0','H9_D2','H9_D4', 'H9_D10','H9_D28')
+time_tissue_order = c('H9_D0','H9_D2','H9_D4', 'H9_D10','H9_D28')
+type0_tissue_order = c('Astrocytes','SL_D0', 'SLC_D0', 'H9_D0')
+type1_tissue_order = c('Astrocytes','SL_D2', 'SLC_D2', 'H9_D2')
+type2_tissue_order = c('Astrocytes', 'H9_D0','H9_D28')
+type3_tissue_order = c('SL_D0', 'SLC_D0', 'H9_D0')
+type4_tissue_order = c('SL_D2', 'SLC_D2', 'H9_D2')
+# metadata = annon_df
+
+```
+
+```{r}
+# # functions for differential expression
+# createSig <- function (data, metadata, col_sel,tissue=TRUE, logFC_thres=.1, p_thres=0.05,max_return = -1) {
+#     # Differential expression analysis with limmma
+#     # This function takes in a target
+#     # Output is a result table of differential expression analysis for target vs control
+# 
+#     # load data and preprocess
+#     if (tissue){
+#     metadata = metadata %>% 
+#         mutate(label = if_else(tissue==col_sel, 'target', 'control'))
+#     }
+#     else{
+#          metadata = metadata %>% 
+#         mutate(label = if_else(group==col_sel, 'target', 'control'))
+#     }
+# 
+#     # set up the design
+#     labels <- factor(metadata$label)
+#     design <- model.matrix(~ labels + 1)
+#     colnames(design) <- levels(labels)
+#     rownames(design) <- metadata$tissue
+# #     print(design)
+# 
+#     # proceed with analysis
+#     fit <- lmFit(data, design)
+#     fit <- eBayes(fit, trend=TRUE)
+#     tT = topTable(fit, coef=ncol(design),adjust="fdr", sort.by="p", number=Inf)
+#     tT$gene = rownames(tT)
+#     tT = na.omit(tT)
+#     tT_filt = tT[tT$logFC>logFC_thres  & tT$adj.P.Val<p_thres,]
+#     tT_filt = tT_filt%>% arrange(adj.P.Val)%>% arrange(desc(logFC))
+#     print(dim(tT_filt))
+#     if( max_return >0){
+#         tT_filt = tT_filt[1:min(max_return, dim(tT_filt)[1]),]
+#     }
+#   return(tT_filt)
+# }
+# 
+# runSig <- function(count_df, tissues, max_return = 10000, tissue=TRUE){
+# sig_loop_list = list()
+# sig_loop_combined = c()
+# metadata = data.frame(tissue=tissues)
+# for (tissue_sel in tissues){
+# 
+#     tT_filt = createSig(count_df[,tissues], metadata,  col_sel=tissue_sel,tissue=TRUE,max_return = 10000)
+#     print(tissue_sel)
+#     print(dim(tT_filt))
+#     sig_loop_list[[tissue_sel]] = tT_filt$gene
+#     sig_loop_combined = c(sig_loop_combined,tT_filt$gene)
+#     
+# }
+#     return (list('sig_loop_list'=sig_loop_list, 'sig_loop_combined'=sig_loop_combined))
+# }
+```
+
+```{r}
+sig_loop_time = runSig(myCounts_pseudo_norm, tissues=time_tissue_order)
+```
+
+
+```{r}
+```
+
+
+```{r}
+
+run_sig_atac = function(counts_df, consensus,  tissues, logFC_thres = 0.1, p_thres = 0.05){
+  
+  
+  sig_peak_list = list()
+  sig_peak_combined = c()
+  sig_gene_list = list()
+  sig_gene_combined = c()
+
+  for (col_sel in tissues){
+    metadata = data.frame(tissue=tissues)
+    metadata = metadata %>% 
+        mutate(label = if_else(tissue==col_sel, 'target', 'control'))%>%
+        column_to_rownames('tissue')
+
+    atacDDS <- DESeqDataSetFromMatrix(counts_df[,tissues], metadata, ~label, rowRanges = consensus[,tissues])
+    atacDDS <- DESeq(atacDDS)
+    atac_Rlog <- rlog(atacDDS)
+    print(col_sel)
+    
+    tissue_peaks <- results(atacDDS, c("label", "target", "control"), format = "GRanges")
+#     group_peaks <- green_grey[order(group_peaks$pvalue)]
+    tissue_peaks_anno = annotatePeak(tissue_peaks, TxDb = TxDb.Hsapiens.UCSC.hg19.knownGene)
+    
+    tissue_peaks_df <- as.data.frame(tissue_peaks_anno)
+    tissue_peaks_df$symbol <- mapIds(org.Hs.eg.db, keys=tissue_peaks_df$geneId, column="SYMBOL", keytype="ENTREZID", multiVals="first")
+    tissue_peaks_df_filt = tissue_peaks_df%>%
+        dplyr::filter((abs(log2FoldChange)>logFC_thres)  & (pvalue<p_thres))%>%
+        arrange(padj)%>% 
+        arrange(desc(log2FoldChange))%>%
+        mutate(name = paste('ID', seqnames, as.character(start),as.character(end), sep = "_"))
+    print(dim(tissue_peaks_df_filt))
+    sig_peak_list[[col_sel]] = tissue_peaks_df_filt$name
+    sig_peak_combined = c(sig_peak_combined,tissue_peaks_df_filt$name)
+    sig_gene_list[[col_sel]] = tissue_peaks_df_filt$symbol
+    sig_gene_combined = c(sig_gene_combined,tissue_peaks_df_filt$symbol)
+  }
+  
+  return(list('sig_peak_list'=sig_peak_list, 'sig_peak_combined'=sig_peak_combined))
+  
+}
+
+
+```
+
+
+
+```{r}
+sig_time = run_sig_atac(myCounts_pseudo_norm, consensusToCount, tissues=time_tissue_order)
+
+```
+
+
+```{r}
+type1_tissue_order
+sig_type1 = run_sig_atac(myCounts_pseudo_norm, consensusToCount, tissues=type1_tissue_order)
+
+```
+
+
+```{r}
+type0_tissue_order
+sig_type0 = run_sig_atac(myCounts_pseudo_norm, consensusToCount, tissues=type0_tissue_order)
+
+```
+
+```{r}
+type2_tissue_order
+sig_type2 = run_sig_atac(myCounts_pseudo_norm, consensusToCount, tissues=type2_tissue_order)
+
+```
+
+
+
+```{r}
+type3_tissue_order
+sig_type3 = run_sig_atac(myCounts_pseudo_norm, consensusToCount, tissues=type3_tissue_order)
+type4_tissue_order
+sig_type4 = run_sig_atac(myCounts_pseudo_norm, consensusToCount, tissues=type4_tissue_order)
+
+```
+
+
+trying typ0 and type1 for getting diff attributes not good enough b/c astocytes are so different
+type 2 ==> astrocytes 3 and type 4 better
+
+
+saving all diff pearks
+```{r}
+save_dir = '../data/processed/fig1/atac/diffatac/'
+all_tissue_order# [1] "Astrocytes" "SL_D0"      "SL_D2"      "SLC_D0"     "SLC_D2"     "H9_D0"      "H9_D2"      "H9_D4"      "H9_D10"     "H9_D28"    
+
+
+get_peak_df = function(list_ids){
+  df = data.frame(id=list_ids)%>%
+separate(id, c('ID','chr','start','stop'),'_')%>%
+    select(-ID)%>%
+    mutate(chr = factor(chr, levels=c("chr1" ,  "chr2"  , "chr3",  "chr4",  "chr5"  ,"chr6" , "chr7" , "chr8"  ,"chr9" ,"chr10",
+                                        "chr11" ,"chr12" ,"chr13", "chr14", "chr15", "chr16" ,"chr17" ,"chr18", "chr19","chr20" ,"chr21", "chr22", "chrX" )))%>%
+    mutate(start = as.numeric(start))%>%
+    mutate(stop = as.numeric(stop))%>%
+    arrange(chr, start,stop)
+  return (df)
+  
+}
+
+H9D0_df = get_peak_df(sig_time$sig_peak_list$H9_D0)
+write.table(H9D0_df, paste0(save_dir, 'H9D0_diffpeaks.bed'),quote=FALSE,sep='\t',col.names=FALSE,row.names=FALSE)
+H9D2_df = get_peak_df(sig_time$sig_peak_list$H9_D2)
+write.table(H9D2_df, paste0(save_dir, 'H9D2_diffpeaks.bed'),quote=FALSE,sep='\t',col.names=FALSE,row.names=FALSE)
+H9D4_df = get_peak_df(sig_time$sig_peak_list$H9_D4)
+write.table(H9D4_df, paste0(save_dir, 'H9D4_diffpeaks.bed'),quote=FALSE,sep='\t',col.names=FALSE,row.names=FALSE)
+H9D10_df = get_peak_df(sig_time$sig_peak_list$H9_D10)
+write.table(H9D10_df, paste0(save_dir, 'H9D10_diffpeaks.bed'),quote=FALSE,sep='\t',col.names=FALSE,row.names=FALSE)
+H9D28_df = get_peak_df(sig_time$sig_peak_list$H9_D28)
+write.table(H9D28_df, paste0(save_dir, 'H9D28_diffpeaks.bed'),quote=FALSE,sep='\t',col.names=FALSE,row.names=FALSE)
+Astrocytes_df = get_peak_df(sig_type2$sig_peak_list$Astrocytes)
+write.table(Astrocytes_df, paste0(save_dir, 'Astrocytes_df_diffpeaks.bed'),quote=FALSE,sep='\t',col.names=FALSE,row.names=FALSE)
+
+SLD2_df = get_peak_df(sig_type4$sig_peak_list$SL_D2)
+write.table(SLD2_df, paste0(save_dir, 'SLD2_diffpeaks.bed'),quote=FALSE,sep='\t',col.names=FALSE,row.names=FALSE)
+SLCD2_df = get_peak_df(sig_type4$sig_peak_list$SLC_D2)
+write.table(SLCD2_df, paste0(save_dir, 'SLCD2_diffpeaks.bed'),quote=FALSE,sep='\t',col.names=FALSE,row.names=FALSE)
+
+
+SLD0_df = get_peak_df(sig_type0$sig_peak_list$SL_D0)
+write.table(SLD0_df, paste0(save_dir, 'SLD0_diffpeaks.bed'),quote=FALSE,sep='\t',col.names=FALSE,row.names=FALSE)
+SLCD0_df = get_peak_df(sig_type0$sig_peak_list$SLC_D0)
+write.table(SLCD0_df, paste0(save_dir, 'SLCD0_diffpeaks.bed'),quote=FALSE,sep='\t',col.names=FALSE,row.names=FALSE)
+
+```
+
+
+then try slope method
+
+```{r}
+
+slope  <-  function(x){
+    if(all(is.na(x)))
+        # if x is all missing, then lm will throw an error that we want to avoid
+        return(NA)
+    else
+        model = lm(I(1:length(x))~x)
+        return(model$coefficients[2])
+        # fstat = summary(m)$fstatistic
+        # p_f = pf(fstat[1],fstat[2],fstat[3],lower.tail=FALSE)
+        # return (list( 'coef' = model$coefficients[2], 
+        #               'pval' = p_f,
+        #               'fstat' = fstat[1]))
+  }
+
+
+time_slope = apply(myCounts_pseudo_norm[,time_tissue_order], 1, slope)
+
+
+
+
+
+# time_slope_dd  <-  t(as.data.frame(matrix(unlist(time_slope), nrow=length(unlist(time_slope[1])))))
+myCounts_pseudo_norm_sd = apply(myCounts_pseudo_norm[,time_tissue_order],1,sd)
+myCounts_pseudo_norm_sd_sel = myCounts_pseudo_norm[names(myCounts_pseudo_norm_sd[abs(myCounts_pseudo_norm_sd)>3]),time_tissue_order]
+dim(myCounts_pseudo_norm_sd_sel)
+
+slope_myCounts_pseudo_norm_sd_sel = apply(myCounts_pseudo_norm_sd_sel,1,slope)
+```
+
+```{r}
+# ggplot(data.frame(time_slope),aes(x=time_slope))+geom_density()
+
+# 1. time slope diff
+
+time_slope = sort(time_slope)
+diff_time_slope = time_slope[(time_slope>.5) | (time_slope< (-.5))]
+
+length(time_slope)
+length(diff_time_slope)
+
+# get count values
+myCounts_pseudo_norm_sort = myCounts_pseudo_norm[names(diff_time_slope),time_tissue_order]
+dim(myCounts_pseudo_norm_sort)
+
+# scale and truncate 
+myCounts_pseudo_norm_sort_scale = scale(myCounts_pseudo_norm_sort,center=TRUE, scale=TRUE)
+myCounts_pseudo_norm_sort_scale[myCounts_pseudo_norm_sort_scale>1] = 1
+summary(myCounts_pseudo_norm_sort_scale)
+dim(myCounts_pseudo_norm_sort_scale)
+
+# trime
+myCounts_pseudo_norm_sort_scale_min = apply(myCounts_pseudo_norm_sort_scale, 1,min)
+myCounts_pseudo_norm_sort_scale_max = apply(myCounts_pseudo_norm_sort_scale, 1,max)
+
+myCounts_pseudo_norm_sort_scale = myCounts_pseudo_norm_sort_scale[(myCounts_pseudo_norm_sort_scale_min< (-.5)) & (myCounts_pseudo_norm_sort_scale_max>0.5),]
+dim(myCounts_pseudo_norm_sort_scale)
+
+
+p = pheatmap(myCounts_pseudo_norm_sort_scale,#tissue_loop_df_norm_time_high_var_sort,
+          cluster_cols=F,
+          cluster_rows=T,
+         show_rownames=F,
+#              annotation_col=annon_df,
+               color = colorRampPalette(rev(brewer.pal(n =8, name ="RdBu")))(255))
+p
+save_pheatmap_pdf(p, '../data/processed/fig1/atac/atac_time_heatmap.pdf', height=7,width=7)
+write.csv(myCounts_pseudo_norm_sort_scale, '../data/processed/fig1/atac/atac_time_heatmap.csv')
+# # high var
+# # get count values
+# myCounts_pseudo_norm_sd_sel_sort = myCounts_pseudo_norm_sd_sel[names(sort(slope_myCounts_pseudo_norm_sd_sel)),]
+# dim(myCounts_pseudo_norm_sd_sel_sort)
+
+# scale 
+# myCounts_pseudo_norm_sd_sel_sort_scale = scale(myCounts_pseudo_norm_sd_sel_sort,center=TRUE, scale=TRUE)
+# myCounts_pseudo_norm_sd_sel_sort_scale[myCounts_pseudo_norm_sd_sel_sort_scale>2] = 2
+# summary(myCounts_pseudo_norm_sd_sel_sort_scale)
+
+# pheatmap(myCounts_pseudo_norm_sd_sel_sort_scale,#tissue_loop_df_norm_time_high_var_sort,
+#           cluster_cols=F,
+#           cluster_rows=F,
+#          show_rownames=F,
+# #              annotation_col=annon_df,
+#                color = colorRampPalette(rev(brewer.pal(n =8, name ="RdBu")))(255))
+#          
+
+```
+
+
+
+```{r}
+# get nearest_genes
+# reduced[rownames(data.frame(myCounts_pseudo_norm_sort_scale)),]
+
+df = t(data.frame(strsplit(rownames(data.frame(myCounts_pseudo_norm_sort_scale)),'_')))
+rownames(df) = rownames(data.frame(myCounts_pseudo_norm_sort_scale))
+colnames(df) = c('id','chr','start','stop')
+df = data.frame(df[,c('chr','start','stop')])
+df$start = as.numeric(df$start)
+df$stop = as.numeric(df$stop)
+head(df)
+
+atac_peak_granges = makeGRangesFromDataFrame(df)  # strand value "." is replaced with "*"
+
+atac_peak_granges_anno = annotatePeak(atac_peak_granges, TxDb = TxDb.Hsapiens.UCSC.hg19.knownGene)
+
+atac_peak_granges_anno <- as.data.frame(atac_peak_granges_anno)
+atac_peak_granges_anno$symbol <- mapIds(org.Hs.eg.db, keys=atac_peak_granges_anno$geneId, column="SYMBOL", keytype="ENTREZID", multiVals="first")
+
+atac_peak_granges_anno = atac_peak_granges_anno%>%
+    mutate(id = paste('ID',seqnames, start, end, sep='_'))
+head(atac_peak_granges_anno)
+
+```
+
+
+```{r}
+# get day genes
+myCounts_pseudo_norm_sort_scale = data.frame(myCounts_pseudo_norm_sort_scale)
+idx_days= list()
+idx_days_gene= list()
+idx_days_entrez= list()
+
+for (day in colnames(myCounts_pseudo_norm_sort_scale)){
+  idx_day = rownames(myCounts_pseudo_norm_sort_scale)[myCounts_pseudo_norm_sort_scale[[day]]>0.95]
+  idx_day_genes = atac_peak_granges_anno$symbol[atac_peak_granges_anno$id %in% idx_day]
+  idx_day_entrez = atac_peak_granges_anno$geneId[atac_peak_granges_anno$id %in% idx_day]
+  
+  print(day)
+  print(length(idx_day))
+  idx_days[[day]] = idx_day
+  idx_days_gene[[day]] = unique(sort(idx_day_genes))
+  print(length(idx_days_gene[[day]] ))
+  
+  write.csv(unique(sort(idx_day_genes)), paste0('../data/processed/fig1/atac/atac_time_genes_',day,'.csv'))
+
+  idx_days_entrez[[day]] = unique(sort(idx_day_entrez))
+  print(length(idx_days_entrez[[day]] ))
+   
+  
+}
+```
+
+
+```{r}
+# annotate reactome for gene sets
+save_prefix = '../data/processed/fig1/atac/atac_time_genes_'
+ck_reactome_90 <- compareCluster(geneCluster = idx_day_entrez, 
+                                 fun = "enrichPathway", pAdjustMethod='none', pvalueCutoff = 1,readable=TRUE)
+write.csv(ck_reactome_90, paste0(save_prefix,"ck_reactome_groups.csv"))
+dotplot(ck_reactome_90)
+ggsave(file = paste0(save_prefix, "ck_reactome_groups.pdf"),height=7, width=10)
+```
+
+
+```{r}
+# annotate go for genesets
+ck_go_bp <- compareCluster(geneCluster = idx_day_entrez, fun = "enrichGO", 
+                                pAdjustMethod='BH', 
+                                pvalueCutoff  = 0.05,
+                                qvalueCutoff  = 0.05,
+                                OrgDb='org.Hs.eg.db', 
+                                ont = "BP",
+                                readable=TRUE)
+head(as.data.frame(ck_go_bp))
+write.csv(ck_go_bp, file=paste0(save_prefix, 'ck_go_bp_05.csv'))
+
+ck_go_mf <- compareCluster(geneCluster = idx_day_entrez, fun = "enrichGO", 
+                                pAdjustMethod='BH', 
+                                pvalueCutoff  = 0.05,
+                                qvalueCutoff  = 0.05,
+                                OrgDb='org.Hs.eg.db', 
+                                ont = "MF",
+                                readable=TRUE)                              
+head(as.data.frame(ck_go_mf))
+write.csv(ck_go_mf, file=paste0(save_prefix, 'ck_go_mf_05.csv'))
+
+
+ck_go_cc <- compareCluster(geneCluster = idx_day_entrez, fun = "enrichGO", 
+                                pAdjustMethod='BH', 
+                                pvalueCutoff  = 0.05,
+                                qvalueCutoff  = 0.05,
+                                OrgDb='org.Hs.eg.db', 
+                                ont = "CC",
+                                readable=TRUE)
+head(as.data.frame(ck_go_cc))
+write.csv(ck_go_cc, file=paste0(save_prefix, 'ck_go_cc_05.csv'))
+
+
+dotplot(ck_go_bp)
+ggsave(file = paste0(save_prefix, "ck_go_bp_groups.pdf"),height=7, width=10)
+dotplot(ck_go_mf)
+ggsave(file = paste0(save_prefix, "ck_go_mf_groups.pdf"),height=7, width=10)
+dotplot(ck_go_cc)
+ggsave(file = paste0(save_prefix, "ck_go_cc_groups.pdf"),height=7, width=10)
+```
+
+
+
+# more heatmaps
+```{r}
+# get count values
+myCounts_type0 = myCounts_pseudo_norm[,type0_tissue_order]
+
+# scale and truncate 
+myCounts_type0_scale = scale(myCounts_type0,center=TRUE, scale=TRUE)
+myCounts_type0_scale[myCounts_type0_scale>1] = 1
+summary(myCounts_type0_scale)
+dim(myCounts_type0_scale)
+
+# trime
+myCounts_type0_scale_min = apply(myCounts_type0_scale, 1,min)
+myCounts_type0_scale_max = apply(myCounts_type0_scale, 1,max)
+myCounts_type0_scale_sd = apply(myCounts_type0_scale, 1,sd)
+
+# myCounts_type0_scale = myCounts_type0_scale[(myCounts_type0_scale_min< (-.5)) & (myCounts_type0_scale_max>0.5),]
+myCounts_type0_scale = myCounts_type0_scale[myCounts_type0_scale_sd>0.5, ]
+dim(myCounts_type0_scale)
+
+
+p = pheatmap(myCounts_type0_scale,#tissue_loop_df_norm_time_high_var_sort,
+          cluster_cols=F,
+          cluster_rows=T,
+         show_rownames=F,
+#              annotation_col=annon_df,
+               color = colorRampPalette(rev(brewer.pal(n =8, name ="RdBu")))(255))
+p
+save_pheatmap_pdf(p, '../data/processed/fig1/atac/atac_type0_heatmap.pdf', height=7,width=7)
+write.csv(myCounts_type0_scale, '../data/processed/fig1/atac/atac_type0_heatmap.csv')
+
+```
+
+---
+title: "2DR_mg_atac_diff_analysis"
+output: html_notebook
+---
+
+08/19/2020
+```{r}
+getwd()
+library(org.Hs.eg.db)
+# library(EnsDb.Hsapiens.v75)
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+# BiocManager::install("TxDb.Hsapiens.UCSC.hg19.knownGene")
+library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+# BiocManager::install("AnnotationDbi")
+library(DiffBind)
+library(ChIPQC)
+library(ChIPseeker)
+library(ChIPpeakAnno)
+library(DESeq2)
+library(soGGi)
+library(Rsubread)
+library(tracktables)
+
+library(limma)
+
+library(pheatmap)  
+library(RColorBrewer)
+library(viridis)
+library(reshape2)
+library(AnnotationDbi) 
+library(Biobase)
+library(tximport)
+
+library(tidyverse)
+library(stringr)
+library(Rtsne)
+library(caret)  
+library(clusterProfiler)
+library(pheatmap)
+library(AnnotationDbi)
+library(ReactomePA)
+library(annotate)
+library(seqinr)
+save_pheatmap_png <- function(x, filename, width=1200, height=1000, res = 200) {
+  png(filename, width = width, height = height, res = res)
+  grid::grid.newpage()
+  grid::grid.draw(x$gtable)
+  dev.off()
+}
+
+save_pheatmap_pdf <- function(x, filename, width=7, height=7) {
+   stopifnot(!missing(x))
+   stopifnot(!missing(filename))
+   pdf(filename, width=width, height=height)
+   grid::grid.newpage()
+   grid::grid.draw(x$gtable)
+   dev.off()
+}
+
+
+
+```
+
+
+# 1. Get Counts
+
+```{r}
+peak_files <- dir("../data/raw/atac_narrowPeak", pattern = "*.narrowPeak",  full.names = TRUE)
+peak_files
+myPeaks <- lapply(peak_files, ChIPQC:::GetGRanges, simple = TRUE)
+names(myPeaks) <- c("Astrocytes","H9_D0","H9_D10","H9_D2","H9_D28","H9_D4","SL_D0","SL_D2","SLC_D0","SLC_D2")
+
+```
+
+```{r}
+myGRangesList<-GRangesList(myPeaks)   
+reduced <- GenomicRanges::reduce(unlist(myGRangesList))
+consensusIDs <- paste0("consensus_", seq(1, length(reduced)))
+mcols(reduced) <- do.call(cbind, lapply(myGRangesList, function(x) (reduced %over% x) + 0))
+reducedConsensus <- reduced
+mcols(reducedConsensus) <- cbind(as.data.frame(mcols(reducedConsensus)), consensusIDs)
+consensusIDs <- paste0("consensus_", seq(1, length(reducedConsensus)))
+# consensusToCount <- soGGi:::runConsensusRegions(GRangesList(myPeaks), "none")
+```
+
+```{r}
+consensusToCount <- reducedConsensus
+occurrences <- elementMetadata(consensusToCount) %>% as.data.frame %>% dplyr::select(-consensusIDs) %>% 
+    rowSums
+
+table(occurrences) %>% rev %>% cumsum
+```
+
+```{r}
+consensusToCount
+save(consensusToCount, file = "../data/processed/fig1/atac/consensusToCount.RData")
+
+```
+
+
+
+load consensusToCount onto Sherlock
+
+```
+cd /Users/mguo123/Documents/pan_omics_psych/data/processed/fig1/atac
+
+scp consensusToCount.RData mguo123@login.sherlock.stanford.edu:/oak/stanford/groups/khavari/users/mguo123/psych_project/data/atac_diff_analysis
+```
+
+then ran on Sherlock
+
+```
+cd /oak/stanford/groups/khavari/users/mguo123/psych_project/data/atac_diff_analysis
+ml R
+```
+
+in R 
+```
+
+library(tidyverse)
+library(Rsubread)
+library(GenomicRanges)
+
+load('consensusToCount.RData')
+bamsToCount <- dir("/oak/stanford/groups/khavari/users/mguo123/psych_project/data/atac_bam_files/",full.names = TRUE, pattern = "*.\\.bam$")
+bamsToCount
+regionsToCount <- data.frame(GeneID = paste("ID", seqnames(consensusToCount), 
+    start(consensusToCount), end(consensusToCount), sep = "_"), Chr = seqnames(consensusToCount), 
+    Start = start(consensusToCount), End = end(consensusToCount), Strand = strand(consensusToCount))
+fcResults <- featureCounts(bamsToCount, annot.ext = regionsToCount, isPairedEnd = TRUE, 
+    countMultiMappingReads = FALSE, maxFragLength = 100)
+myCounts <- fcResults$counts
+
+colnames(myCounts) <- c("Astrocytes","H9_D0","H9_D10","H9_D2","H9_D28","H9_D4","SL_D0","SL_D2","SLC_D0","SLC_D2")
+
+save(myCounts, file = "countsFromATAC.RData")
+```
+
+on local computer
+```
+cd /Users/mguo123/Documents/pan_omics_psych/data/processed/fig1/atac
+scp  mguo123@login.sherlock.stanford.edu:/oak/stanford/groups/khavari/users/mguo123/psych_project/data/atac_diff_analysis/countsFromATAC.RData .
+
+```
+
+# 2. Differetial Peak Analysis
+
+```{r}
+load("../data/processed/fig1/atac/countsFromATAC.RData")
+dim(myCounts)
+head(myCounts)
+```
+
+```{r}
+# pseudo and normalize (TPM)
+myCounts_pseudo = myCounts+1
+myCounts_pseudo_norm = scale(myCounts_pseudo, center=FALSE, scale=colSums(myCounts_pseudo))*1e6
+mode(myCounts_pseudo_norm) <- "integer"
+
+```
+
+```{r}
+all_tissue_order = c('Astrocytes','SL_D0','SL_D2','SLC_D0', 'SLC_D2','H9_D0','H9_D2','H9_D4', 'H9_D10','H9_D28')
+time_tissue_order = c('H9_D0','H9_D2','H9_D4', 'H9_D10','H9_D28')
+type0_tissue_order = c('Astrocytes','SL_D0', 'SLC_D0', 'H9_D0')
+type1_tissue_order = c('Astrocytes','SL_D2', 'SLC_D2', 'H9_D2')
+
+# metadata = annon_df
+
+```
+
+```{r}
+# # functions for differential expression
+# createSig <- function (data, metadata, col_sel,tissue=TRUE, logFC_thres=.1, p_thres=0.05,max_return = -1) {
+#     # Differential expression analysis with limmma
+#     # This function takes in a target
+#     # Output is a result table of differential expression analysis for target vs control
+# 
+#     # load data and preprocess
+#     if (tissue){
+#     metadata = metadata %>% 
+#         mutate(label = if_else(tissue==col_sel, 'target', 'control'))
+#     }
+#     else{
+#          metadata = metadata %>% 
+#         mutate(label = if_else(group==col_sel, 'target', 'control'))
+#     }
+# 
+#     # set up the design
+#     labels <- factor(metadata$label)
+#     design <- model.matrix(~ labels + 1)
+#     colnames(design) <- levels(labels)
+#     rownames(design) <- metadata$tissue
+# #     print(design)
+# 
+#     # proceed with analysis
+#     fit <- lmFit(data, design)
+#     fit <- eBayes(fit, trend=TRUE)
+#     tT = topTable(fit, coef=ncol(design),adjust="fdr", sort.by="p", number=Inf)
+#     tT$gene = rownames(tT)
+#     tT = na.omit(tT)
+#     tT_filt = tT[tT$logFC>logFC_thres  & tT$adj.P.Val<p_thres,]
+#     tT_filt = tT_filt%>% arrange(adj.P.Val)%>% arrange(desc(logFC))
+#     print(dim(tT_filt))
+#     if( max_return >0){
+#         tT_filt = tT_filt[1:min(max_return, dim(tT_filt)[1]),]
+#     }
+#   return(tT_filt)
+# }
+# 
+# runSig <- function(count_df, tissues, max_return = 10000, tissue=TRUE){
+# sig_loop_list = list()
+# sig_loop_combined = c()
+# metadata = data.frame(tissue=tissues)
+# for (tissue_sel in tissues){
+# 
+#     tT_filt = createSig(count_df[,tissues], metadata,  col_sel=tissue_sel,tissue=TRUE,max_return = 10000)
+#     print(tissue_sel)
+#     print(dim(tT_filt))
+#     sig_loop_list[[tissue_sel]] = tT_filt$gene
+#     sig_loop_combined = c(sig_loop_combined,tT_filt$gene)
+#     
+# }
+#     return (list('sig_loop_list'=sig_loop_list, 'sig_loop_combined'=sig_loop_combined))
+# }
+```
+
+```{r}
+sig_loop_time = runSig(myCounts_pseudo_norm, tissues=time_tissue_order)
+```
+
+
+```{r}
+```
+
+
+```{r}
+
+run_sig_atac = function(counts_df, consensus,  tissues, logFC_thres = 0.1, p_thres = 0.05){
+  
+  
+  sig_peak_list = list()
+  sig_peak_combined = c()
+  sig_gene_list = list()
+  sig_gene_combined = c()
+
+  for (col_sel in tissues){
+    metadata = data.frame(tissue=tissues)
+    metadata = metadata %>% 
+        mutate(label = if_else(tissue==col_sel, 'target', 'control'))%>%
+        column_to_rownames('tissue')
+
+    atacDDS <- DESeqDataSetFromMatrix(counts_df[,tissues], metadata, ~label, rowRanges = consensus[,tissues])
+    atacDDS <- DESeq(atacDDS)
+    atac_Rlog <- rlog(atacDDS)
+    print(col_sel)
+    
+    tissue_peaks <- results(atacDDS, c("label", "target", "control"), format = "GRanges")
+#     group_peaks <- green_grey[order(group_peaks$pvalue)]
+    tissue_peaks_anno = annotatePeak(tissue_peaks, TxDb = TxDb.Hsapiens.UCSC.hg19.knownGene)
+    
+    tissue_peaks_df <- as.data.frame(tissue_peaks_anno)
+    tissue_peaks_df$symbol <- mapIds(org.Hs.eg.db, keys=tissue_peaks_df$geneId, column="SYMBOL", keytype="ENTREZID", multiVals="first")
+    tissue_peaks_df_filt = tissue_peaks_df[(tissue_peaks_df$log2FoldChange>logFC_thres)  & (tissue_peaks_df$padj<p_thres),]
+    tissue_peaks_df_filt = tissue_peaks_df_filt%>% arrange(padj)%>% arrange(desc(log2FoldChange))
+    tissue_peaks_df_filt = tissue_peaks_df_filt%>%
+        mutate(name = paste('ID', seqnames, as.character(start),as.character(end), sep = "_"))
+    print(dim(tissue_peaks_df_filt))
+    sig_peak_list[[col_sel]] = tissue_peaks_df_filt$name
+    sig_peak_combined = c(sig_peak_combined,tissue_peaks_df_filt$name)
+    sig_gene_list[[col_sel]] = tissue_peaks_df_filt$symbol
+    sig_gene_combined = c(sig_gene_combined,tissue_peaks_df_filt$symbol)
+  }
+  
+  return(list('sig_peak_list'=sig_peak_list, 'sig_peak_combined'=sig_peak_combined))
+  
+}
+
+
+```
+
+
+```{r}
+sig_time = run_sig_atac(myCounts_pseudo_norm, consensusToCount, tissues=time_tissue_order)
+
+```
+
+
+```{r}
+type1_tissue_order
+sig_type1 = run_sig_atac(myCounts_pseudo_norm, consensusToCount, tissues=type1_tissue_order)
+
+```
+
+
+```{r}
+type0_tissue_order
+sig_type0 = run_sig_atac(myCounts_pseudo_norm, consensusToCount, tissues=type0_tissue_order)
+
+```
+
+notes on above method, really poor normalization, try the looping method?
+
+then try slope method
+
+```{r}
+
+slope  <-  function(x){
+    if(all(is.na(x)))
+        # if x is all missing, then lm will throw an error that we want to avoid
+        return(NA)
+    else
+        model = lm(I(1:length(x))~x)
+        return(model$coefficients[2])
+        # fstat = summary(m)$fstatistic
+        # p_f = pf(fstat[1],fstat[2],fstat[3],lower.tail=FALSE)
+        # return (list( 'coef' = model$coefficients[2], 
+        #               'pval' = p_f,
+        #               'fstat' = fstat[1]))
+  }
+
+
+time_slope = apply(myCounts_pseudo_norm[,time_tissue_order], 1, slope)
+
+
+
+
+
+# time_slope_dd  <-  t(as.data.frame(matrix(unlist(time_slope), nrow=length(unlist(time_slope[1])))))
+myCounts_pseudo_norm_sd = apply(myCounts_pseudo_norm[,time_tissue_order],1,sd)
+myCounts_pseudo_norm_sd_sel = myCounts_pseudo_norm[names(myCounts_pseudo_norm_sd[abs(myCounts_pseudo_norm_sd)>3]),time_tissue_order]
+dim(myCounts_pseudo_norm_sd_sel)
+
+slope_myCounts_pseudo_norm_sd_sel = apply(myCounts_pseudo_norm_sd_sel,1,slope)
+```
+
+```{r}
+# ggplot(data.frame(time_slope),aes(x=time_slope))+geom_density()
+
+# 1. time slope diff
+
+time_slope = sort(time_slope)
+diff_time_slope = time_slope[(time_slope>.5) | (time_slope< (-.5))]
+
+length(time_slope)
+length(diff_time_slope)
+
+# get count values
+myCounts_pseudo_norm_sort = myCounts_pseudo_norm[names(diff_time_slope),time_tissue_order]
+dim(myCounts_pseudo_norm_sort)
+
+# scale and truncate 
+myCounts_pseudo_norm_sort_scale = scale(myCounts_pseudo_norm_sort,center=TRUE, scale=TRUE)
+myCounts_pseudo_norm_sort_scale[myCounts_pseudo_norm_sort_scale>1] = 1
+summary(myCounts_pseudo_norm_sort_scale)
+dim(myCounts_pseudo_norm_sort_scale)
+
+# trime
+myCounts_pseudo_norm_sort_scale_min = apply(myCounts_pseudo_norm_sort_scale, 1,min)
+myCounts_pseudo_norm_sort_scale_max = apply(myCounts_pseudo_norm_sort_scale, 1,max)
+
+myCounts_pseudo_norm_sort_scale = myCounts_pseudo_norm_sort_scale[(myCounts_pseudo_norm_sort_scale_min< (-.5)) & (myCounts_pseudo_norm_sort_scale_max>0.5),]
+dim(myCounts_pseudo_norm_sort_scale)
+
+
+p = pheatmap(myCounts_pseudo_norm_sort_scale,#tissue_loop_df_norm_time_high_var_sort,
+          cluster_cols=F,
+          cluster_rows=T,
+         show_rownames=F,
+#              annotation_col=annon_df,
+               color = colorRampPalette(rev(brewer.pal(n =8, name ="RdBu")))(255))
+p
+save_pheatmap_pdf(p, '../data/processed/fig1/atac/atac_time_heatmap.pdf', height=7,width=7)
+write.csv(myCounts_pseudo_norm_sort_scale, '../data/processed/fig1/atac/atac_time_heatmap.csv')
+# # high var
+# # get count values
+# myCounts_pseudo_norm_sd_sel_sort = myCounts_pseudo_norm_sd_sel[names(sort(slope_myCounts_pseudo_norm_sd_sel)),]
+# dim(myCounts_pseudo_norm_sd_sel_sort)
+
+# scale 
+# myCounts_pseudo_norm_sd_sel_sort_scale = scale(myCounts_pseudo_norm_sd_sel_sort,center=TRUE, scale=TRUE)
+# myCounts_pseudo_norm_sd_sel_sort_scale[myCounts_pseudo_norm_sd_sel_sort_scale>2] = 2
+# summary(myCounts_pseudo_norm_sd_sel_sort_scale)
+
+# pheatmap(myCounts_pseudo_norm_sd_sel_sort_scale,#tissue_loop_df_norm_time_high_var_sort,
+#           cluster_cols=F,
+#           cluster_rows=F,
+#          show_rownames=F,
+# #              annotation_col=annon_df,
+#                color = colorRampPalette(rev(brewer.pal(n =8, name ="RdBu")))(255))
+#          
+
+```
+
+
+
+```{r}
+# get nearest_genes
+# reduced[rownames(data.frame(myCounts_pseudo_norm_sort_scale)),]
+
+df = t(data.frame(strsplit(rownames(data.frame(myCounts_pseudo_norm_sort_scale)),'_')))
+rownames(df) = rownames(data.frame(myCounts_pseudo_norm_sort_scale))
+colnames(df) = c('id','chr','start','stop')
+df = data.frame(df[,c('chr','start','stop')])
+df$start = as.numeric(df$start)
+df$stop = as.numeric(df$stop)
+head(df)
+
+atac_peak_granges = makeGRangesFromDataFrame(df)  # strand value "." is replaced with "*"
+
+atac_peak_granges_anno = annotatePeak(atac_peak_granges, TxDb = TxDb.Hsapiens.UCSC.hg19.knownGene)
+
+atac_peak_granges_anno <- as.data.frame(atac_peak_granges_anno)
+atac_peak_granges_anno$symbol <- mapIds(org.Hs.eg.db, keys=atac_peak_granges_anno$geneId, column="SYMBOL", keytype="ENTREZID", multiVals="first")
+
+atac_peak_granges_anno = atac_peak_granges_anno%>%
+    mutate(id = paste('ID',seqnames, start, end, sep='_'))
+head(atac_peak_granges_anno)
+
+```
+
+
+```{r}
+# get day genes
+myCounts_pseudo_norm_sort_scale = data.frame(myCounts_pseudo_norm_sort_scale)
+idx_days= list()
+idx_days_gene= list()
+idx_days_entrez= list()
+
+for (day in colnames(myCounts_pseudo_norm_sort_scale)){
+  idx_day = rownames(myCounts_pseudo_norm_sort_scale)[myCounts_pseudo_norm_sort_scale[[day]]>0.95]
+  idx_day_genes = atac_peak_granges_anno$symbol[atac_peak_granges_anno$id %in% idx_day]
+  idx_day_entrez = atac_peak_granges_anno$geneId[atac_peak_granges_anno$id %in% idx_day]
+  
+  print(day)
+  print(length(idx_day))
+  idx_days[[day]] = idx_day
+  idx_days_gene[[day]] = unique(sort(idx_day_genes))
+  print(length(idx_days_gene[[day]] ))
+  
+  write.csv(unique(sort(idx_day_genes)), paste0('../data/processed/fig1/atac/atac_time_genes_',day,'.csv'))
+
+  idx_days_entrez[[day]] = unique(sort(idx_day_entrez))
+  print(length(idx_days_entrez[[day]] ))
+   
+  
+}
+```
+
+
+```{r}
+# annotate reactome for gene sets
+save_prefix = '../data/processed/fig1/atac/atac_time_genes_'
+ck_reactome_90 <- compareCluster(geneCluster = idx_day_entrez, 
+                                 fun = "enrichPathway", pAdjustMethod='none', pvalueCutoff = 1,readable=TRUE)
+write.csv(ck_reactome_90, paste0(save_prefix,"ck_reactome_groups.csv"))
+dotplot(ck_reactome_90)
+ggsave(file = paste0(save_prefix, "ck_reactome_groups.pdf"),height=7, width=10)
+```
+
+
+```{r}
+# annotate go for genesets
+ck_go_bp <- compareCluster(geneCluster = idx_day_entrez, fun = "enrichGO", 
+                                pAdjustMethod='BH', 
+                                pvalueCutoff  = 0.05,
+                                qvalueCutoff  = 0.05,
+                                OrgDb='org.Hs.eg.db', 
+                                ont = "BP",
+                                readable=TRUE)
+head(as.data.frame(ck_go_bp))
+write.csv(ck_go_bp, file=paste0(save_prefix, 'ck_go_bp_05.csv'))
+
+ck_go_mf <- compareCluster(geneCluster = idx_day_entrez, fun = "enrichGO", 
+                                pAdjustMethod='BH', 
+                                pvalueCutoff  = 0.05,
+                                qvalueCutoff  = 0.05,
+                                OrgDb='org.Hs.eg.db', 
+                                ont = "MF",
+                                readable=TRUE)                              
+head(as.data.frame(ck_go_mf))
+write.csv(ck_go_mf, file=paste0(save_prefix, 'ck_go_mf_05.csv'))
+
+
+ck_go_cc <- compareCluster(geneCluster = idx_day_entrez, fun = "enrichGO", 
+                                pAdjustMethod='BH', 
+                                pvalueCutoff  = 0.05,
+                                qvalueCutoff  = 0.05,
+                                OrgDb='org.Hs.eg.db', 
+                                ont = "CC",
+                                readable=TRUE)
+head(as.data.frame(ck_go_cc))
+write.csv(ck_go_cc, file=paste0(save_prefix, 'ck_go_cc_05.csv'))
+
+
+dotplot(ck_go_bp)
+ggsave(file = paste0(save_prefix, "ck_go_bp_groups.pdf"),height=7, width=10)
+dotplot(ck_go_mf)
+ggsave(file = paste0(save_prefix, "ck_go_mf_groups.pdf"),height=7, width=10)
+dotplot(ck_go_cc)
+ggsave(file = paste0(save_prefix, "ck_go_cc_groups.pdf"),height=7, width=10)
+```
+
+
+
+# more heatmaps
+
+```{r}
+
+
+
+
+```
+
+```{r}
+# get count values
+myCounts_type0 = myCounts_pseudo_norm[,type0_tissue_order]
+
+# scale and truncate 
+myCounts_type0_scale = scale(myCounts_type0,center=TRUE, scale=TRUE)
+myCounts_type0_scale[myCounts_type0_scale>1] = 1
+summary(myCounts_type0_scale)
+dim(myCounts_type0_scale)
+
+# trime
+myCounts_type0_scale_min = apply(myCounts_type0_scale, 1,min)
+myCounts_type0_scale_max = apply(myCounts_type0_scale, 1,max)
+myCounts_type0_scale_sd = apply(myCounts_type0_scale, 1,sd)
+
+# myCounts_type0_scale = myCounts_type0_scale[(myCounts_type0_scale_min< (-.5)) & (myCounts_type0_scale_max>0.5),]
+myCounts_type0_scale = myCounts_type0_scale[myCounts_type0_scale_sd>0.5, ]
+dim(myCounts_type0_scale)
+
+
+p = pheatmap(myCounts_type0_scale,#tissue_loop_df_norm_time_high_var_sort,
+          cluster_cols=T,
+          cluster_rows=T,
+         show_rownames=F,
+#              annotation_col=annon_df,
+               color = colorRampPalette(rev(brewer.pal(n =8, name ="RdBu")))(255))
+p
+save_pheatmap_pdf(p, '../data/processed/fig1/atac/atac_type0_heatmap.pdf', height=7,width=7)
+write.csv(myCounts_type0_scale, '../data/processed/fig1/atac/atac_type0_heatmap.csv')
+
+
+# get nearest_genes
+# reduced[rownames(data.frame(myCounts_pseudo_norm_sort_scale)),]
+
+df = t(data.frame(strsplit(rownames(data.frame(myCounts_type0_scale)),'_')))
+rownames(df) = rownames(data.frame(myCounts_type0_scale))
+colnames(df) = c('id','chr','start','stop')
+df = data.frame(df[,c('chr','start','stop')])
+df$start = as.numeric(df$start)
+df$stop = as.numeric(df$stop)
+head(df)
+
+atac_peak_granges = makeGRangesFromDataFrame(df)  # strand value "." is replaced with "*"
+
+atac_peak_granges_anno = annotatePeak(atac_peak_granges, TxDb = TxDb.Hsapiens.UCSC.hg19.knownGene)
+
+atac_peak_granges_anno <- as.data.frame(atac_peak_granges_anno)
+atac_peak_granges_anno$symbol <- mapIds(org.Hs.eg.db, keys=atac_peak_granges_anno$geneId, column="SYMBOL", keytype="ENTREZID", multiVals="first")
+
+atac_peak_granges_anno = atac_peak_granges_anno%>%
+    mutate(id = paste('ID',seqnames, start, end, sep='_'))
+head(atac_peak_granges_anno)
+
+
+# get day genes
+myCounts_type0_scale = data.frame(myCounts_type0_scale)
+idx_days= list()
+idx_days_gene= list()
+idx_days_entrez= list()
+
+for (day in colnames(myCounts_type0_scale)){
+  idx_day = rownames(myCounts_type0_scale)[myCounts_type0_scale[[day]]>0.95]
+  idx_day_genes = atac_peak_granges_anno$symbol[atac_peak_granges_anno$id %in% idx_day]
+  idx_day_entrez = atac_peak_granges_anno$geneId[atac_peak_granges_anno$id %in% idx_day]
+  
+  print(day)
+  print(length(idx_day))
+  idx_days[[day]] = idx_day
+  idx_days_gene[[day]] = unique(sort(idx_day_genes))
+  print(length(idx_days_gene[[day]] ))
+  
+  write.csv(unique(sort(idx_day_genes)), paste0('../data/processed/fig1/atac/atac_type0_genes_',day,'.csv'),row.names=FALSE,col.names=FALSE)
+
+  idx_days_entrez[[day]] = unique(sort(idx_day_entrez))
+  print(length(idx_days_entrez[[day]] ))
+   
+  
+}
+```
+
+```{r}
+# get count values
+myCounts_type1 = myCounts_pseudo_norm[,type1_tissue_order]
+
+# scale and truncate 
+myCounts_type1_scale = scale(myCounts_type1,center=TRUE, scale=TRUE)
+myCounts_type1_scale[myCounts_type1_scale>1] = 1
+summary(myCounts_type1_scale)
+dim(myCounts_type1_scale)
+
+# trime
+myCounts_type1_scale_min = apply(myCounts_type1_scale, 1,min)
+myCounts_type1_scale_max = apply(myCounts_type1_scale, 1,max)
+myCounts_type1_scale_sd = apply(myCounts_type1_scale, 1,sd)
+
+# myCounts_type1_scale = myCounts_type0_scale[(myCounts_type1_scale_min< (-.5)) & (myCounts_type1_scale_max>0.5),]
+myCounts_type1_scale = myCounts_type1_scale[myCounts_type1_scale_sd>0.5, ]
+dim(myCounts_type1_scale)
+
+
+p = pheatmap(myCounts_type1_scale,#tissue_loop_df_norm_time_high_var_sort,
+          cluster_cols=T,
+          cluster_rows=T,
+         show_rownames=F,
+#              annotation_col=annon_df,
+               color = colorRampPalette(rev(brewer.pal(n =8, name ="RdBu")))(255))
+p
+save_pheatmap_pdf(p, '../data/processed/fig1/atac/atac_type1_heatmap.pdf', height=7,width=7)
+write.csv(myCounts_type0_scale, '../data/processed/fig1/atac/atac_type1_heatmap.csv')
+
+
+# get nearest_genes
+# reduced[rownames(data.frame(myCounts_pseudo_norm_sort_scale)),]
+
+df = t(data.frame(strsplit(rownames(data.frame(myCounts_type1_scale)),'_')))
+rownames(df) = rownames(data.frame(myCounts_type1_scale))
+colnames(df) = c('id','chr','start','stop')
+df = data.frame(df[,c('chr','start','stop')])
+df$start = as.numeric(df$start)
+df$stop = as.numeric(df$stop)
+head(df)
+
+atac_peak_granges = makeGRangesFromDataFrame(df)  # strand value "." is replaced with "*"
+
+atac_peak_granges_anno = annotatePeak(atac_peak_granges, TxDb = TxDb.Hsapiens.UCSC.hg19.knownGene)
+
+atac_peak_granges_anno <- as.data.frame(atac_peak_granges_anno)
+atac_peak_granges_anno$symbol <- mapIds(org.Hs.eg.db, keys=atac_peak_granges_anno$geneId, column="SYMBOL", keytype="ENTREZID", multiVals="first")
+
+atac_peak_granges_anno = atac_peak_granges_anno%>%
+    mutate(id = paste('ID',seqnames, start, end, sep='_'))
+head(atac_peak_granges_anno)
+
+
+# get day genes
+myCounts_type1_scale = data.frame(myCounts_type1_scale)
+idx_days= list()
+idx_days_gene= list()
+idx_days_entrez= list()
+
+for (day in colnames(myCounts_type1_scale)){
+  idx_day = rownames(myCounts_type1_scale)[myCounts_type1_scale[[day]]>0.95]
+  idx_day_genes = atac_peak_granges_anno$symbol[atac_peak_granges_anno$id %in% idx_day]
+  idx_day_entrez = atac_peak_granges_anno$geneId[atac_peak_granges_anno$id %in% idx_day]
+  
+  print(day)
+  print(length(idx_day))
+  idx_days[[day]] = idx_day
+  idx_days_gene[[day]] = unique(sort(idx_day_genes))
+  print(length(idx_days_gene[[day]] ))
+  
+  write.csv(unique(sort(idx_day_genes)), paste0('../data/processed/fig1/atac/atac_type1_genes_',day,'.csv'),row.names=FALSE,col.names=FALSE)
+
+  idx_days_entrez[[day]] = unique(sort(idx_day_entrez))
+  print(length(idx_days_entrez[[day]] ))
+   
+  
+}
+
+
+```
+
+
+```{r}
+save.image("~/Documents/pan_omics_psych/data/processed/fig1/atac/2DR_mg_atac_diff_analysis_workspace.RData")
+```
+

@@ -1,0 +1,278 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+# Diffloop
+
+https://rpubs.com/caleblareau/diffloop_vignette
+
+## 0. Package setup
+```{r}
+library(ggplot2)
+
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install("DESeq2")
+# BiocManager::install("diffloop")
+# BiocManager::install("diffloopdata")
+# BiocManager::install("pheatmap")
+
+library(ggplot2)
+library(GenomicRanges)
+library(ggrepel)
+library(tidyverse)
+library(foreach)
+library(DESeq2)#, lib.loc='/home/users/mguo123/R/x86_64-pc-linux-gnu-library/3.5')
+library(diffloop)#, lib.loc='/home/users/mguo123/R/x86_64-pc-linux-gnu-library/3.5')
+library(diffloopdata)#, lib.loc='/home/users/mguo123/R/x86_64-pc-linux-gnu-library/3.5')
+library(limma)#, lib.loc='/home/users/mguo123/R/x86_64-pc-linux-gnu-library/3.5')
+library(edgeR)#, lib.loc='/home/users/mguo123/R/x86_64-pc-linux-gnu-library/3.5')
+library(corrplot)
+library(pheatmap)
+
+save_pheatmap_png <- function(x, filename, width=1200, height=1000, res = 200) {
+  png(filename, width = width, height = height, res = res)
+  grid::grid.newpage()
+  grid::grid.draw(x$gtable)
+  dev.off()
+}
+ 
+
+save_pheatmap_pdf <- function(x, filename, width=7, height=7) {
+   stopifnot(!missing(x))
+   stopifnot(!missing(filename))
+   pdf(filename, width=width, height=height)
+   grid::grid.newpage()
+   grid::grid.draw(x$gtable)
+   dev.off()
+}
+getwd()
+save_dir = '~/Documents/pan_omics_psych/data/processed/fig2_hichip/hichip_diffloop/'
+```
+
+
+data
+in terminal
+```
+cd /Users/mguo123/Documents/pan_omics_psych/data/raw/hichipper_data
+
+ cp "/Users/mguo123/Google Drive/1_khavari/noncancer_project/looping_analysis/hichipper_data/"*.bedpe .
+ 
+ (base) DN52ehvg:hichipper_data mguo123$ ll
+total 15452800
+-rw-r-----  1 mguo123  staff  481225998 Jan 15 19:29 Astro_B1.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  327078861 Jan 15 19:29 Astro_B2.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  337148930 Jan 15 19:29 H9-B1.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  296541936 Jan 15 19:29 H9-B2.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  239625431 Jan 15 19:29 H9D10-B1.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff   68143145 Jan 15 19:29 H9D10-B2.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff   87905031 Jan 15 19:29 H9D28-B1.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  136129729 Jan 15 19:29 H9D28-B2.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  815024565 Jan 15 19:29 H9Ngn2-13.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  908766613 Jan 15 19:29 H9Ngn2-14.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  227528484 Jan 15 19:29 SL-B1.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  308447022 Jan 15 19:29 SL-B2.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  402434072 Jan 15 19:29 SLC-B1.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  601751430 Jan 15 19:29 SLC-B2.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  703026580 Jan 15 19:29 SLCNgn2-20.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  583452821 Jan 15 19:29 SLCNgn2-21.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  690227660 Jan 15 19:29 SLNgn2-20.filt.intra.loop_counts.bedpe
+-rw-r-----  1 mguo123  staff  697347616 Jan 15 19:29 SLNgn2-21.filt.intra.loop_counts.bedpe
+
+```
+# 1. Run diffloop on hichipper data
+```{r}
+bedpe_dir = '/Users/mguo123/Documents/pan_omics_psych/data/raw/hichipper_data'
+list.files(bedpe_dir)
+d = loopsMake(bedpe_dir)
+saveRDS(d, paste0(save_dir,"diffloop_data.rds"))
+
+```
+
+```{r}
+ # explore data
+dim(d)
+colnames(d@counts)
+
+head(d@counts)
+
+
+```
+
+```{r}
+#correlation
+res = cor(d@counts,method='pearson')
+p = pheatmap(res,show_rownames=F)
+save_pheatmap_pdf(p,paste0(save_dir, "_diffloop_samples_heatmap.pdf"), width=7, height=7)
+
+```
+
+```{r}
+# pca plot
+samples = lapply(colnames(d@counts), function(x) strsplit(x, '.filt')[[1]][1])
+tissues = lapply(colnames(d@counts), function(x) strsplit(x, '[-_]')[[1]][1])
+
+### DOESN"T WORK WON"T DEBUG
+# # samples <- c('Ngn2-rep1','Ngn2-rep2', 'SL-rep1', 'SL-rep2', 'SLC-rep1', 'SLC-rep2')
+# pcp2 <-pcaPlot(d) + geom_text_repel(aes(label=samples)) +
+# #     scale_x_continuous(limits = c(-120, 120)) + 
+#     ggtitle("PC Plot with Size Factor Correction") +
+#     theme(legend.position="none")
+# pcp2
+# 
+# ggsave(paste0(save_dir,'d_pca.pdf'))
+
+```
+
+```{r}
+
+# get names of the loops 
+interactions_df = data.frame(d@interactions) # loops: 26926762
+interactions_df$left_chr = as.character(d@anchors@seqnames)[c(interactions_df$left)]
+interactions_df$right_chr = as.character(d@anchors@seqnames)[c(interactions_df$right)]
+interactions_df$left_start = as.numeric(d@anchors@ranges@start)[c(interactions_df$left)]
+interactions_df$right_start = as.numeric(d@anchors@ranges@start)[c(interactions_df$right)]
+interactions_df$left_width= as.numeric(d@anchors@ranges@width)[c(interactions_df$left)]
+interactions_df$right_width = as.numeric(d@anchors@ranges@width)[c(interactions_df$right)]
+interactions_df$left_end = interactions_df$left_start + interactions_df$left_width
+interactions_df$right_end = interactions_df$right_start + interactions_df$right_width
+interactions_df$region = paste0("region_",1:nrow(interactions_df))
+
+interactions_df = interactions_df%>%
+  mutate(left_start = as.character(left_start))%>%
+  mutate(left_end = as.character(left_end))%>%
+  mutate(right_start = as.character(right_start))%>%
+  mutate(right_end = as.character(right_end))%>%
+  mutate(left_id = str_c(left_chr,left_start, left_end,sep='_'))%>%
+  mutate(right_id = str_c(right_chr,right_start, right_end,sep='_'))%>%
+  mutate(loop_name = str_c(left_id, right_id,sep='::'))
+  
+head(interactions_df)
+
+```
+
+
+```{r}
+df = data.frame(d@counts)
+df$region = paste0("region_",1:nrow(df))
+colnames(df) = c(samples,"region")
+head(df)
+
+
+df_tissue =df %>%
+  mutate(Astro=Astro_B1+Astro_B2)%>%
+  mutate(H9_D0=`H9-B1`+`H9-B2`)%>%
+  mutate(H9_D10=`H9D10-B1`+`H9D10-B2`)%>%
+  mutate(H9_D28=`H9D28-B1`+`H9D28-B2`)%>%
+  mutate(SL_D0=`SL-B1`+`SL-B2`)%>%
+  mutate(SLC_D0=`SLC-B1`+`SLC-B2`)%>%
+  mutate(H9_D2 = `H9Ngn2-13` +  `H9Ngn2-14`)%>%
+  mutate(SLC_D2 = `SLCNgn2-20` + `SLCNgn2-21`)%>%
+  mutate(SL_D2 = `SLNgn2-20` + `SLNgn2-21`)%>%
+  select(Astro, H9_D0,H9_D10, H9_D28, SL_D0, SLC_D0, H9_D2, SL_D2, SLC_D2, region)
+dim(df_tissue)
+
+
+```
+
+
+# per tissue heatmap
+```{r}
+
+
+res_tissue = cor(select(df_tissue,-region),method='pearson')
+# res_tissue
+p1 = corrplot(res_tissue, type = "upper", order = "hclust", 
+         tl.col = "black", tl.srt = 45,
+             tl.pos='td',tl.cex=.8)
+
+p2 = pheatmap(res_tissue)
+save_pheatmap_pdf(p2, paste0(save_dir,"diffloop_tissue_heatmap.pdf"), width=7, height=7)
+
+
+pdf( paste0(save_dir,"diffloop_tissue_dendrogram.pdf"))
+par(bg='white')
+plot(p2$tree_row)
+dev.off()
+
+plot(p2$tree_row)
+
+```
+
+```{r}
+# select tissues
+
+
+res_tissue2 = cor(select(df_tissue,-region, -H9_D2, -SL_D2, -SLC_D2),method='pearson')
+# res_tissue
+p3 = corrplot(res_tissue2, type = "upper", order = "hclust", 
+         tl.col = "black", tl.srt = 45,
+             tl.pos='td',tl.cex=.8)
+
+p4 = pheatmap(res_tissue2)
+save_pheatmap_pdf(p4, paste0(save_dir,"diffloop_tissue_heatmap2.pdf"), width=7, height=7)
+
+
+pdf( paste0(save_dir,"diffloop_tissue_dendrogram2.pdf"))
+par(bg='white')
+plot(p4$tree_row)
+dev.off()
+
+plot(p4$tree_row)
+```
+
+```{r}
+df_tissue = cbind(df_tissue, interactions_df%select(-region))
+write.csv(df_tissue, paste0(save_dir,'hichipper_merged_tissue_counts.csv'))
+
+```
+
+# get diff loop anchors
+```{r}
+# of diff loops
+df_tissue%>% filter(Astro>1)%>% dim()
+df_tissue%>% filter(H9_D28>1)%>% dim()
+df_tissue%>% filter(H9_D10>1)%>% dim()
+df_tissue%>% filter(H9_D0>1)%>% dim()
+df_tissue%>% filter(SL_D0>1)%>% dim()
+df_tissue%>% filter(SLC_D0>1)%>% dim()
+
+df_tissue%>% filter(H9_D2>1)%>% dim()
+df_tissue%>% filter(SL_D2>1)%>% dim()
+df_tissue%>% filter(SLC_D2>1)%>% dim()
+
+#   
+# [1] 3174875      13
+# [1] 1000701      13
+# [1] 1340069      13
+# [1] 2528811      13
+# [1] 2206019      13
+# [1] 3970998      13
+# [1] 8125398      13
+# [1] 6063576      13
+# [1] 5419384      13
+save_diff = function(tissue){
+  diffloop_tissue = df_tissue%>% filter(get(tissue)>1)%>%
+    filter(!str_detect(left_chr, 'gl000'))%>%
+    filter(!str_detect(right_chr, 'gl000'))%>%
+  # mutate(count=get(tissue))%>%
+  select(left_chr, left_start, left_end, right_chr, right_start, right_end, region)  
+  write.table(diffloop_tissue, paste0(save_dir, tissue,'_diffloop_loop.bed'),quote=FALSE,sep='\t',col.names=FALSE,row.names=FALSE)# these are in bedpe format
+  df_l = diffloop_tissue[,c("left_chr", "left_start", "left_end")]
+  colnames(df_l) = c('chr','start','end')
+  df_r = diffloop_tissue[,c("right_chr", "right_start", "right_end")]
+  colnames(df_r) = c('chr','start','end')
+  diffloop_tissue_anchor = bind_rows(df_l,df_r)
+  write.table(diffloop_tissue_anchor, paste0(save_dir, tissue,'_diffloop_anchor.bed'),quote=FALSE,sep='\t',col.names=FALSE,row.names=FALSE)
+  print(dim(diffloop_tissue))
+  print(dim(diffloop_tissue_anchor))###ANCHOR NEEDS SORTING MERGING (IN BEDTOOLS)
+
+}
+for (tissue in c("Astro" ,"H9_D0","H9_D10", "H9_D28","SL_D0" , "SLC_D0" , "H9_D2"  ,"SL_D2" , "SLC_D2" )  ){
+  print(tissue)
+  save_diff(tissue)
+}
+
+
+```
+

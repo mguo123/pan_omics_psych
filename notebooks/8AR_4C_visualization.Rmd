@@ -1,0 +1,250 @@
+---
+title: "8AR_4C_visualization"
+output: html_notebook
+---
+01/19/2021
+
+lots of preprecessing
+
+# A. first got the matrix.bed files (large on sherlock)
+```
+[mguo123@sh03-ln07 login /oak/stanford/groups/khavari/users/mguo123/psych_project/data/hicpro_matrix_abs_files]$ wc -l *matrix.bed
+   87737453 Astro_B1_5000.matrix.bed
+   66167112 Astro_B2_5000.matrix.bed
+   65154240 H9-B1_5000.matrix.bed
+   54608740 H9-B2_5000.matrix.bed
+   56989135 H9D10-B1_5000.matrix.bed
+   24774723 H9D10-B2_5000.matrix.bed
+   10621516 H9D28-B1_5000.matrix.bed
+   11353751 H9D28-B2_5000.matrix.bed
+  124558939 H9D2-B1_5000.matrix.bed
+  143328326 H9D2-B2_5000.matrix.bed
+   66075332 SL-B1_5000.matrix.bed
+   75950456 SL-B2_5000.matrix.bed
+   77761196 SLC-B1_5000.matrix.bed
+  113237474 SLC-B2_5000.matrix.bed
+  127742225 SLCD2-B1_5000.matrix.bed
+   90346195 SLCD2-B2_5000.matrix.bed
+  151907695 SLD2-B1_5000.matrix.bed
+  128885574 SLD2-B2_5000.matrix.bed
+       1000 test.matrix.bed
+ 1477201082 total
+
+
+
+```
+
+# B. next for each gene symbol we want, run `get_4C.sh` on sherlock
+cmd example: `bash get_4C.sh -c 4 -p 113435000 -s NEUROG2` 
+make sure to log in setup
+transfer files over like sush (run on local computer)
+```
+cd /Users/mguo123/Documents/pan_omics_psych/data/interim/4C_files
+scp mguo123@login.sherlock.stanford.edu:/oak/stanford/groups/khavari/users/mguo123/psych_project/data/hicpro_matrix_abs_files/4C_files/4C_NEUROG* .
+```
+
+
+```
+File: get_4C.sh
+
+
+#!/bin/sh
+cd /oak/stanford/groups/khavari/users/mguo123/psych_project/data/hicpro_matrix_abs_files
+
+samples=(Astro_B1_5000 Astro_B2_5000 H9-B1_5000 H9-B2_5000 H9D10-B1_5000 H9D10-B2_5000 H9D28-B1_5000 H9D28-B2_5000 SL-B1_5000 SL-B2_5000 SLC-B1_5000 SLC-B2_5000)
+
+while getopts "c:p:s:" flag
+do
+    case "${flag}" in
+        c) chr=${OPTARG};;
+        p) position=${OPTARG};;
+        s) sym=${OPTARG};;
+    esac
+done
+echo "chr: $chr";
+echo "position: $position";
+echo "sym: ${sym}";
+#chr=4
+#position=113435000
+#sym=NEUROG2
+
+
+
+for sample in "${samples[@]}"; do
+echo $sample
+
+mat_file=$sample.matrix.bed
+
+
+awk -v position=$position -v chr=$chr  'BEGIN{OFS="\t"} {if ($1==chr && ($2==position|| $5==position)) {if ($2==position){print $1,$2,$3,$4,$5,$6,$7} else {print $4,$5,$6,$1,$2,$3,$7}};}' $mat_file >  4C_files/4C_${sym}_${sample}.matrix.bed
+
+done
+```
+
+# C. run the following notebook (follows `run_HiChIP_4C_plot.R` from laura D)
+
+## Step 0: setup 
+
+```{r}
+library(Hmisc)
+library(zoo)
+
+save_dir = '../data/processed/4C_plots/'
+dir_4C = '../data/interim/4C_files/'
+list.files(dir_4C,pattern='*bed')
+
+valid_stat_df = read.table(paste0(dir_4C,'valid_stat.tsv'),sep='\t',
+                           row.names=1,header=T)
+
+```
+01/17/2021: bash get_4C.sh -c 4 -p 113435000 -s NEUROG2
+01/19/2021: bash get_4C.sh -c 1 -p 212790000 -s ATF3
+01/21/2021: bash get_4C.sh -c 5 -p 140180000 -s PCDH1
+
+
+## Step 1: Read in the data
+
+
+```{r}
+### FILL IN center_coord
+gene_sym="PCDH1"
+chrom=5
+center_coord=140180000
+resolution=5000
+save_file = paste0(save_dir,gene_sym, '_4tissues.pdf')
+save_file
+# samples = c("Astro_B2","H9-B2","H9D28-B1","SLC-B1")
+samples = c("Astro_B2","H9D10-B1","SL-B2","SLC-B1")
+table1=read.table(paste0(dir_4C,"4C_", gene_sym, '_', samples[1],"_5000.matrix.bed"))
+table2=read.table(paste0(dir_4C,"4C_", gene_sym, '_', samples[2],"_5000.matrix.bed"))
+table3=read.table(paste0(dir_4C,"4C_", gene_sym, '_', samples[3],"_5000.matrix.bed"))
+table4=read.table(paste0(dir_4C,"4C_", gene_sym, '_', samples[4],"_5000.matrix.bed"))
+
+```
+
+
+## Step 2: Process data 
+
+1. normalization
+2. smoothing
+
+
+```{r}
+
+#Normalization factors: take the number of read mapped for whole library (HiC-Pro->data->sample-> *.mergestat->valid interaction rmdup ->NUMBER and divide by million)
+# see valid_stat_df
+valid_stat_df
+# # Normalization factors
+table1_norm=valid_stat_df[samples[1],"num_valid_million"]#224.665040 #
+table2_norm=valid_stat_df[samples[2],"num_valid_million"]#224.665040 #
+table3_norm=valid_stat_df[samples[3],"num_valid_million"]#224.665040 #
+table4_norm=valid_stat_df[samples[4],"num_valid_million"]#224.665040 #
+
+
+# # Alternate norm factors
+#
+# table1_norm = sum(table1[,7])/1e3
+# table2_norm = sum(table2[,7])/1e3
+# table3_norm = sum(table3[,7])/1e3
+# table4_norm = sum(table4[,7])/1e3
+#
+
+################
+
+
+# Pick your smoothing window (1 means no smoothing, 2 averages over 2 adjacent bins, etc. )
+rollmean_win =10
+
+# Process dataset 1
+counts1_left=table1[table1[,2]== center_coord,c(5,7)]
+counts1_right=table1[table1[,5]== center_coord,c(2,7)]
+colnames(counts1_left) = c(1,2)
+colnames(counts1_right) = c(1,2)
+counts1_merge=rbind(counts1_left, counts1_right)
+counts1_merge_ord = counts1_merge[order(counts1_merge[,1]),]
+counts1_merge_ord[,2] = counts1_merge_ord[,2]/table1_norm
+counts1_merge_ord[,1] = counts1_merge_ord[,1] + resolution/2
+line1 = rollmean(counts1_merge_ord[,2], rollmean_win,fill=c(0,0,0))
+
+
+# Process dataset 2
+counts2_left=table2[table2[,2]== center_coord,c(5,7)]
+counts2_right=table2[table2[,5]== center_coord,c(2,7)]
+colnames(counts2_left) = c(1,2)
+colnames(counts2_right) = c(1,2)
+counts2_merge=rbind(counts2_left, counts2_right)
+counts2_merge_ord = counts2_merge[order(counts2_merge[,1]),]
+counts2_merge_ord[,2] = counts2_merge_ord[,2]/table2_norm
+counts2_merge_ord[,1] = counts2_merge_ord[,1] + resolution/2
+line2 = rollmean(counts2_merge_ord[,2], rollmean_win,fill=c(0,0,0))
+
+#Dataset3
+counts3_left=table3[table3[,2]== center_coord,c(5,7)]
+counts3_right=table3[table3[,5]== center_coord,c(2,7)]
+colnames(counts3_left) = c(1,2)
+colnames(counts3_right) = c(1,2)
+counts3_merge=rbind(counts3_left, counts3_right)
+counts3_merge_ord = counts3_merge[order(counts3_merge[,1]),]
+counts3_merge_ord[,2] = counts3_merge_ord[,2]/table3_norm
+counts3_merge_ord[,1] = counts3_merge_ord[,1] + resolution/2
+line3 = rollmean(counts3_merge_ord[,2], rollmean_win,fill=c(0,0,0))
+
+#Dataset4
+counts4_left=table4[table4[,2]== center_coord,c(5,7)]
+counts4_right=table4[table4[,5]== center_coord,c(2,7)]
+colnames(counts4_left) = c(1,2)
+colnames(counts4_right) = c(1,2)
+counts4_merge=rbind(counts4_left, counts4_right)
+counts4_merge_ord = counts4_merge[order(counts4_merge[,1]),]
+counts4_merge_ord[,2] = counts4_merge_ord[,2]/table4_norm
+counts4_merge_ord[,1] = counts4_merge_ord[,1] + resolution/2
+line4 = rollmean(counts4_merge_ord[,2], rollmean_win,fill=c(0,0,0))
+
+
+```
+
+
+##  Plot
+
+```{r}
+
+xlim_minus=3.e5 # bp upstream of anchor
+xlim_plus=1e6 # bp downstream of anchor
+
+num_samples=4
+
+## MANUALLY ADJEST FOR number of samples
+ylim_max = max(c(line1,line2,line3,line4))*.5
+# ylim_max=2
+print(ylim_max)
+ylim_par=c(-0.0001,ylim_max) # y axis limits
+
+lwd_par = 2 # line thickness
+xlab=paste0("Position on chr",chrom)
+ylab="Reads/1e6 filtered reads"
+plot_name=paste("Virtual 4C anchor 5kb bin for gene: ",gene_sym, ' at chr',chrom, ':',center_coord,sep="")
+xlim_par= c((center_coord)-xlim_minus,(center_coord)+xlim_plus)
+print(xlim_par)
+pdf(save_file)
+plot(counts1_merge_ord[,1],line1,type="l",xlab= xlab,ylab=ylab,lwd= lwd_par,xlim=xlim_par,main=plot_name,ylim= ylim_par,cex.main=0.7,col="blue",xaxs="i")
+#points(counts1_merge_ord[,1], counts1_merge_ord[,2],pch=19,cex=0.4,col="blue")
+
+lines(counts2_merge_ord[,1],line2,type="l",col="red",lwd=lwd_par)
+#points(counts2_merge_ord[,1], counts2_merge_ord[,2],pch=19,col="blue",lwd=lwd_par,cex=0.4)
+
+lines(counts3_merge_ord[,1],line3,type="l",col="purple",lwd=lwd_par)
+#points(counts3_merge_ord[,1], counts3_merge_ord[,2],pch=19,col="red",lwd=lwd_par,cex=0.4)
+
+lines(counts4_merge_ord[,1],line4,type="l",col="darkgreen",lwd=lwd_par)
+#points(counts4_merge_ord[,1], counts4_merge_ord[,2],pch=19,col="darkgreen",lwd=lwd_par,cex=0.4)
+
+
+abline(v= center_coord + resolution/2,lty=2,col="gray")
+#legend("topright",c("0818","1209","H9","WT33"), col=c("blue","red","purple","darkgreen"),inset=0.03,lwd=lwd_par,cex=0.7)
+
+colors = c("blue", "red","purple","darkgreen")[1:num_samples]
+legend("topright",samples[1:num_samples], col=colors[1:num_samples],inset=0.03,lwd=lwd_par,cex=0.7)
+dev.off()
+
+```
+
