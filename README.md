@@ -1,7 +1,8 @@
 pan_omics_psych
 ==============================
 
-data exploration and modeling for pan omics dataset (psych). Khavari Lab/ Wernig Lab
+Data exploration and modeling for transcriptomics and epigenomics datasets of for the paper Guo et al., "Compendium of functional regulatory variants in human neuropsychiatric disease"
+
 
 
 Project Requirements:
