@@ -8,8 +8,11 @@ Project Requirements:
 - bedtools
 
 
-To Do:
-- make setup requirements
+# Setup
+1. run `make requirements` to install project dependences
+2. download raw data[s3://mguo123-washu/psych_mpra_paper_data/pan_omics_psych_data/data/raw] and place in the data folder as described in Project Organization below.
+3. return `make data` to make the crm models 
+
 
 Project Organization
 ------------
