@@ -1,15 +1,19 @@
 pan_omics_psych
 ==============================
 
-data exploration and modeling for pan omics dataset (psych). Khavari Lab/ Wernig Lab
+Data exploration and modeling for transcriptomics and epigenomics datasets of for the paper Guo et al., "Compendium of functional regulatory variants in human neuropsychiatric disease"
+
 
 
 Project Requirements:
 - bedtools
 
 
-To Do:
-- make setup requirements
+# Setup
+1. run `make requirements` to install project dependences
+2. download raw data[s3://mguo123-washu/psych_mpra_paper_data/pan_omics_psych_data/data/raw] and place in the data folder as described in Project Organization below.
+3. return `make data` to make the crm models 
+
 
 Project Organization
 ------------
