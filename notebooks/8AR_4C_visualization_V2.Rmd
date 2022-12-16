@@ -154,7 +154,7 @@ process data means:
 # sample : <str> REQUIRED
 # norm_method: <str> 'valid', 'sum', default sets table_norm = 1
 # rollmean_win: <int> Pick your smoothing window (1 means no smoothing, 2 averages over 2 adjacent bins, etc. )
-read_bed = function(sample, norm_method='valid', rollmean_win =2){
+read_bed = function(sample, norm_method='valid', rollmean_win =1){
   # 1. read bed
   tissue = strsplit(sample, '[_-]')[[1]][1]
   table = read.table(paste0(file_prefix, sample, file_suffix))
@@ -187,7 +187,7 @@ read_bed = function(sample, norm_method='valid', rollmean_win =2){
 }
 
 # read in chosen samples
-tables = lapply(samples, function(x) read_bed(x, rollmean_win=3))
+tables = lapply(samples, function(x) read_bed(x, rollmean_win=2))
 table_all = bind_rows(tables)
 table_all_avg = table_all%>%
   group_by(x,tissue)%>%
@@ -206,14 +206,14 @@ xlim_minus=4e5 # bp upstream of anchor
 xlim_plus=4e5 # bp downstream of anchor
 xlim_par= c((center_coord)-xlim_minus,(center_coord)+xlim_plus)
 ylim_par=c(-0.01,0.2) # y axis limits
-lwd_par = .5 # line thickness 
+lwd_par = .5 # line thickness
 xlab="Position on chr"
 ylab="Filtered reads"
 plot_name=paste("Virtual 4C anchor 5kb bin for gene: ",gene_sym, ' at chr',chrom, ':',center_coord,sep="")
 
 
-# actual plot 
-ggplot(table_all_avg, aes(x=x, y=y, color=tissue))+geom_line(lwd=lwd_par)+  
+# actual plot
+ggplot(table_all_avg, aes(x=x, y=y, color=tissue))+geom_line(lwd=lwd_par)+
   scale_colour_manual(values=color_arr)+
   labs(title=plot_name,
         x =xlab, y = ylab)+
