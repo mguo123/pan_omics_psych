@@ -66,4 +66,6 @@ Project Organization
 
 --------
 
+[![DOI](https://zenodo.org/badge/381854970.svg)](https://zenodo.org/badge/latestdoi/381854970)
+
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
